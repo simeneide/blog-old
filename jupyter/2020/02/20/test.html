@@ -84,7 +84,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      5 min read
+      8 min read
     
 </span></p>
 
@@ -127,6 +127,25 @@ window.onload = wrap_img;
 <a href="#About">About </a>
 <ul>
 <li class="toc-entry toc-h2"><a href="#Front-Matter">Front Matter </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#" why-posterior-distribution>"Why posterior distribution? I just want my neural net to be good" </a></li>
+<li class="toc-entry toc-h1"><a href="#General-setup">General setup </a></li>
+<li class="toc-entry toc-h1">
+<a href="#Markov-Chain-Monte-Carlo-(MCMC)">Markov Chain Monte Carlo (MCMC) </a>
+<ul>
+<li class="toc-entry toc-h2">
+<a href="#Metropolis-MCMC-algorithm">Metropolis MCMC algorithm </a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#Learning-rate">Learning rate </a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#Variational-Inference">Variational Inference </a></li>
+<li class="toc-entry toc-h1">
+<a href="#Stochastic-Gradient-Markov-Chain-Monte-Carlo-(SG-MCMC)">Stochastic Gradient Markov Chain Monte Carlo (SG-MCMC) </a>
+<ul>
 <li class="toc-entry toc-h2"><a href="#Markdown-Shortcuts">Markdown Shortcuts </a></li>
 <li class="toc-entry toc-h2">
 <a href="#Interactive-Charts-With-Altair">Interactive Charts With Altair </a>
@@ -201,6 +220,86 @@ window.onload = wrap_img;
 </ul>
 <p>The title and description need to be enclosed in double quotes only if they include special characters such as a colon. More details and options for front matter can be viewed on the <a href="https://github.com/fastai/fastpages#front-matter-related-options">front matter section</a> of the README.</p>
 
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id='"Why-posterior-distribution?-I-just-want-my-neural-net-to-be-good"'>
+<a class="anchor" href="#" why-posterior-distribution aria-hidden="true"><span class="octicon octicon-link"></span></a>"Why posterior distribution? I just want my neural net to be good"<a class="anchor-link" href="#%22Why-posterior-distribution?-I-just-want-my-neural-net-to-be-good%22"> </a>
+</h1>
+<h1 id="General-setup">
+<a class="anchor" href="#General-setup" aria-hidden="true"><span class="octicon octicon-link"></span></a>General setup<a class="anchor-link" href="#General-setup"> </a>
+</h1>
+<p>We have a dataset $D = [\{x_i, y_i \}, i=1,...,n]$, and have defined a likelihood function $P(D|\theta)$ where $\theta \in R^d$ are some parameters defined in the model. We have also already defined a prior for these parameters $P(\theta)$. The posterior distribution can then be written as</p>
+$$ 
+P(\theta | D) = \frac{P(D|\theta) * P(\theta)}{P(D)} \propto P(D|\theta) * P(\theta)
+$$<p>Finding $P(D)$ is impossible for all but the simplest cases, and as we are interested in complicated likelihood functions such as neural networks, it will clearly not work for us. 
+Therefore, we only have the posterior distribution up to a constant.
+Luckily, there has been developed multiple techniques that can find an approximation to the posterior distribution that only requires 
+There exist multiple techniques to infer the posterior distribution of a bayesian neural network:</p>
+<ul>
+<li>Variational Inference</li>
+<li>Dropout</li>
+<li>SWAG</li>
+<li>Markov Chain Monte Carlo</li>
+<li>Stochastic Markov Chain Monte Carlo (SG-MCMC)</li>
+</ul>
+<h1 id="Markov-Chain-Monte-Carlo-(MCMC)">
+<a class="anchor" href="#Markov-Chain-Monte-Carlo-(MCMC)" aria-hidden="true"><span class="octicon octicon-link"></span></a>Markov Chain Monte Carlo (MCMC)<a class="anchor-link" href="#Markov-Chain-Monte-Carlo-(MCMC)"> </a>
+</h1>
+<p>MCMC is the "traditional" way of finding the posterior distribution.
+It is an iterative algorithm (the markov chain name) that is updating the belief of what the model parameters $\theta$ should be. I.e. we end up with a loong chain of parameter values: $\theta_1, \theta_2, ..., \theta_{n}$. 
+However, we are not looking for a fixed value, but a distribution. Luckily, there are theory that tells us that if you run this sequence for long enough, then all values $\theta_n$ will be samples from the posterior distribution. Voila!</p>
+<p>So how does it work?</p>
+<h2 id="Metropolis-MCMC-algorithm">
+<a class="anchor" href="#Metropolis-MCMC-algorithm" aria-hidden="true"><span class="octicon octicon-link"></span></a>Metropolis MCMC algorithm<a class="anchor-link" href="#Metropolis-MCMC-algorithm"> </a>
+</h2>
+<p>The metropolis MCMC algorithms does nothing but starting in some random position $\theta_0$ and randomly tries to go in a direction (e.g. add a Normal distribution $\theta_1 = \theta_0 + N(0,1)$). 
+If we improved (meaning that $P(\theta | D)$ increased) we use that new value. 
+If it didnt improve, we may still move to that point depending on some probability.</p>
+<p>[ADD A DRAWING HERE THAT SHOWS ]</p>
+<p>Formally the algorithm looks like this:</p>
+<ol>
+<li>Initialize a starting point $\theta_0$. This can either be random or somewhere you think is reasonable. For instance, you can start in the center of your prior distribution $argmax_{\theta} P(\theta)$.</li>
+<li>
+<p>For each $n=1,2,3,...$ do the following:</p>
+<ol>
+<li>Sample a proposal $\theta_*$ using a proposal distribution: $\theta_* \sim J(\theta_* | \theta_{n-1})$ (for example a multivariate Normal distribution: $J(\theta_* | \theta_{n-1}) = N(\theta_* | \theta_{n-1}, I)$</li>
+<li>Compute "how much better this proposal is than the previous:</li>
+</ol>
+<p>$$ 
+r = \frac{P(\theta_*|D)}{P(\theta_{n-1}|D)} 
+$$</p>
+<ol>
+<li>Set  </li>
+</ol>
+<p>$$
+\theta_n = \begin{cases}</p>
+
+<pre><code>         \theta_* &amp; \text{with probability} \text{ min}(1,r) \\
+         \theta_{n-1} &amp; \text{if not}
+         \end{cases}
+</code></pre>
+<p>$$</p>
+</li>
+</ol>
+<p>There is <em>one</em> technical constraint on this proposal distribution $J$ and that is that it should be symmetric.
+That means it should be just as likely to go in either direction: $J(\theta_a | \theta_b) = J(\theta_b | \theta_a)$. 
+Our example above, a multivariate normal with the previous step as mean, satisfy this requirement.</p>
+<p>So why should this thing work? First, see that if we get a better set of parameter then $P(\theta_*|D) &gt; P(\theta_{n-1}|D)$ and the ratio is above 1. Then we will <em>always</em> move to the new value (with probability 1)!
+That is comforting. If I stand somewhere on a smooth mountain and only take a step whenever that step is upwards I can be pretty certain I reach the top!</p>
+<p>But what about that second term? What if we actually dont improve? Looking at the algorithm, that is the case when r is less than 1.</p>
+<h3 id="Learning-rate">
+<a class="anchor" href="#Learning-rate" aria-hidden="true"><span class="octicon octicon-link"></span></a>Learning rate<a class="anchor-link" href="#Learning-rate"> </a>
+</h3>
+<h1 id="Variational-Inference">
+<a class="anchor" href="#Variational-Inference" aria-hidden="true"><span class="octicon octicon-link"></span></a>Variational Inference<a class="anchor-link" href="#Variational-Inference"> </a>
+</h1>
+<h1 id="Stochastic-Gradient-Markov-Chain-Monte-Carlo-(SG-MCMC)">
+<a class="anchor" href="#Stochastic-Gradient-Markov-Chain-Monte-Carlo-(SG-MCMC)" aria-hidden="true"><span class="octicon octicon-link"></span></a>Stochastic Gradient Markov Chain Monte Carlo (SG-MCMC)<a class="anchor-link" href="#Stochastic-Gradient-Markov-Chain-Monte-Carlo-(SG-MCMC)"> </a>
+</h1>
 </div>
 </div>
 </div>
