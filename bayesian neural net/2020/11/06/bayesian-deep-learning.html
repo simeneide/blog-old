@@ -94,7 +94,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      5 min read
+      9 min read
     
 </span></p>
 
@@ -142,9 +142,10 @@ window.onload = wrap_img;
 <ul>
 <li class="toc-entry toc-h2"><a href="#Metropolis-MCMC-algorithm">Metropolis MCMC algorithm </a>
 <ul>
-<li class="toc-entry toc-h3"><a href="#Learning-rate">Learning rate </a></li>
+<li class="toc-entry toc-h3"><a href="#Step-size-aka-learning-rate">Step size aka learning rate </a></li>
 </ul>
 </li>
+<li class="toc-entry toc-h2"><a href="#Implementation-of-Metropolis-algorithm">Implementation of Metropolis algorithm </a></li>
 </ul>
 </li>
 <li class="toc-entry toc-h1"><a href="#Variational-Inference">Variational Inference </a></li>
@@ -220,8 +221,9 @@ $$ P(D|\theta) = \prod_{n=1}^N P(y_n | \theta, x_n) = \prod_{n=1}^N N(\beta_0 + 
 
 <span class="n">X</span> <span class="o">=</span> <span class="n">dist</span><span class="o">.</span><span class="n">Uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">sample</span><span class="p">((</span><span class="n">N</span><span class="p">,))</span>
 <span class="n">Y</span> <span class="o">=</span> <span class="n">beta0</span> <span class="o">+</span> <span class="n">X</span> <span class="o">*</span><span class="n">beta_true</span> <span class="o">+</span> <span class="n">sigma_true</span><span class="o">*</span><span class="n">torch</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="n">N</span><span class="p">,))</span>
+<span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'x'</span> <span class="p">:</span> <span class="n">X</span><span class="p">,</span><span class="s1">'y'</span> <span class="p">:</span> <span class="n">Y</span><span class="p">}</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">'x'</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s1">'y'</span><span class="p">])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"X covariate"</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"Y response"</span><span class="p">)</span>
 <span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"X versus Y in the real data"</span><span class="p">)</span>
@@ -242,12 +244,12 @@ $$ P(D|\theta) = \prod_{n=1}^N P(y_n | \theta, x_n) = \prod_{n=1}^N N(\beta_0 + 
 &lt;!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
   "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"&gt;
 <!-- Created with matplotlib (https://matplotlib.org/) -->
-<svg height="277.314375pt" version="1.1" viewbox="0 0 384.620313 277.314375" width="384.620313pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg height="277.314375pt" version="1.1" viewbox="0 0 384.620312 277.314375" width="384.620312pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
  <metadata>
   <rdf xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <work>
     <type rdf:resource="http://purl.org/dc/dcmitype/StillImage"></type>
-    <date>2020-11-07T14:47:15.421307</date>
+    <date>2020-11-07T17:29:49.979933</date>
     <format>image/svg+xml</format>
     <creator>
      <agent>
@@ -263,8 +265,8 @@ $$ P(D|\theta) = \prod_{n=1}^N P(y_n | \theta, x_n) = \prod_{n=1}^N N(\beta_0 + 
  <g id="figure_1">
   <g id="patch_1">
    <path d="M 0 277.314375 
-L 384.620313 277.314375 
-L 384.620313 0 
+L 384.620312 277.314375 
+L 384.620312 0 
 L 0 0 
 z
 "></path>
@@ -290,39 +292,39 @@ C -2.683901 -1.55874 -3 -0.795609 -3 0
 C -3 0.795609 -2.683901 1.55874 -2.12132 2.12132 
 C -1.55874 2.683901 -0.795609 3 0 3 
 z
-" id="m53b4165d43" style="stroke:#8dd3c7;"></path>
+" id="me415ffb3c5" style="stroke:#8dd3c7;"></path>
     </defs>
-    <g clip-path="url(#p1c24f85a4c)">
-     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="170.269113" xlink:href="#m53b4165d43" y="125.138233"></use>
-     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="66.745336" xlink:href="#m53b4165d43" y="229.874489"></use>
-     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="311.566406" xlink:href="#m53b4165d43" y="40.656337"></use>
-     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="175.343952" xlink:href="#m53b4165d43" y="134.343118"></use>
-     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="75.476001" xlink:href="#m53b4165d43" y="187.119312"></use>
-     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="74.381186" xlink:href="#m53b4165d43" y="227.508313"></use>
-     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="96.520631" xlink:href="#m53b4165d43" y="202.550332"></use>
-     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="344.515836" xlink:href="#m53b4165d43" y="32.201761"></use>
-     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="57.838494" xlink:href="#m53b4165d43" y="199.841995"></use>
-     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="128.476005" xlink:href="#m53b4165d43" y="183.352397"></use>
-     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="178.508552" xlink:href="#m53b4165d43" y="141.983743"></use>
-     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="145.439201" xlink:href="#m53b4165d43" y="130.706439"></use>
-     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="178.614599" xlink:href="#m53b4165d43" y="132.202833"></use>
-     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="270.496713" xlink:href="#m53b4165d43" y="66.458206"></use>
-     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="362.202131" xlink:href="#m53b4165d43" y="44.624434"></use>
-     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="102.190231" xlink:href="#m53b4165d43" y="212.370302"></use>
-     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="103.88329" xlink:href="#m53b4165d43" y="144.396809"></use>
-     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="307.626419" xlink:href="#m53b4165d43" y="45.85754"></use>
-     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="259.678852" xlink:href="#m53b4165d43" y="77.107899"></use>
-     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="232.507081" xlink:href="#m53b4165d43" y="121.417991"></use>
-     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="306.742619" xlink:href="#m53b4165d43" y="105.727731"></use>
-     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="195.796539" xlink:href="#m53b4165d43" y="135.015407"></use>
-     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="153.522966" xlink:href="#m53b4165d43" y="184.049256"></use>
-     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="306.312841" xlink:href="#m53b4165d43" y="70.273378"></use>
-     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="318.315198" xlink:href="#m53b4165d43" y="82.88604"></use>
-     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="90.457361" xlink:href="#m53b4165d43" y="190.801952"></use>
-     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="329.691975" xlink:href="#m53b4165d43" y="69.256134"></use>
-     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="288.806204" xlink:href="#m53b4165d43" y="62.818678"></use>
-     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="88.77229" xlink:href="#m53b4165d43" y="204.055211"></use>
-     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="125.045699" xlink:href="#m53b4165d43" y="160.081749"></use>
+    <g clip-path="url(#pcbd4692731)">
+     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="90.19672" xlink:href="#me415ffb3c5" y="209.623398"></use>
+     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="144.039207" xlink:href="#me415ffb3c5" y="159.049104"></use>
+     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="89.75361" xlink:href="#me415ffb3c5" y="186.785593"></use>
+     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="71.306874" xlink:href="#me415ffb3c5" y="213.207067"></use>
+     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="359.638283" xlink:href="#me415ffb3c5" y="67.418193"></use>
+     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="186.584527" xlink:href="#me415ffb3c5" y="156.233944"></use>
+     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="69.331333" xlink:href="#me415ffb3c5" y="227.555961"></use>
+     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="328.214925" xlink:href="#me415ffb3c5" y="59.287495"></use>
+     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="57.838494" xlink:href="#me415ffb3c5" y="189.772389"></use>
+     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="126.489271" xlink:href="#me415ffb3c5" y="177.545436"></use>
+     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="96.76543" xlink:href="#me415ffb3c5" y="200.872828"></use>
+     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="167.513488" xlink:href="#me415ffb3c5" y="168.362955"></use>
+     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="73.384301" xlink:href="#me415ffb3c5" y="193.736285"></use>
+     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="294.034434" xlink:href="#me415ffb3c5" y="103.413899"></use>
+     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="78.644523" xlink:href="#me415ffb3c5" y="229.874489"></use>
+     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="362.202131" xlink:href="#me415ffb3c5" y="32.201761"></use>
+     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="317.107965" xlink:href="#me415ffb3c5" y="118.819775"></use>
+     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="359.392152" xlink:href="#me415ffb3c5" y="69.031335"></use>
+     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="136.282687" xlink:href="#me415ffb3c5" y="178.125893"></use>
+     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="131.420641" xlink:href="#me415ffb3c5" y="176.797161"></use>
+     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="228.922493" xlink:href="#me415ffb3c5" y="97.292963"></use>
+     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="268.439303" xlink:href="#me415ffb3c5" y="76.839534"></use>
+     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="172.391135" xlink:href="#me415ffb3c5" y="136.492954"></use>
+     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="239.869254" xlink:href="#me415ffb3c5" y="101.887848"></use>
+     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="171.546489" xlink:href="#me415ffb3c5" y="166.860701"></use>
+     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="290.223044" xlink:href="#me415ffb3c5" y="79.861679"></use>
+     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="127.511172" xlink:href="#me415ffb3c5" y="171.053116"></use>
+     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="297.129321" xlink:href="#me415ffb3c5" y="87.35512"></use>
+     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="202.393035" xlink:href="#me415ffb3c5" y="156.984859"></use>
+     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="175.095738" xlink:href="#me415ffb3c5" y="160.752475"></use>
     </g>
    </g>
    <g id="matplotlib.axis_1">
@@ -331,15 +333,15 @@ z
       <defs>
        <path d="M 0 0 
 L 0 3.5 
-" id="mecf7f7767a" style="stroke:#ffffff;stroke-width:0.8;"></path>
+" id="m03581d7c51" style="stroke:#ffffff;stroke-width:0.8;"></path>
       </defs>
       <g>
-       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="50.021366" xlink:href="#mecf7f7767a" y="239.758125"></use>
+       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="53.046817" xlink:href="#m03581d7c51" y="239.758125"></use>
       </g>
      </g>
      <g id="text_1">
       <!-- −1.00 -->
-      <g style="fill:#ffffff;" transform="translate(34.69871 254.356562)scale(0.1 -0.1)">
+      <g style="fill:#ffffff;" transform="translate(37.72416 254.356562)scale(0.1 -0.1)">
        <defs>
         <path d="M 10.59375 35.5 
 L 73.1875 35.5 
@@ -399,12 +401,12 @@ z
     <g id="xtick_2">
      <g id="line2d_2">
       <g>
-       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="89.072874" xlink:href="#mecf7f7767a" y="239.758125"></use>
+       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="92.180547" xlink:href="#m03581d7c51" y="239.758125"></use>
       </g>
      </g>
      <g id="text_2">
       <!-- −0.75 -->
-      <g style="fill:#ffffff;" transform="translate(73.750217 254.356562)scale(0.1 -0.1)">
+      <g style="fill:#ffffff;" transform="translate(76.85789 254.356562)scale(0.1 -0.1)">
        <defs>
         <path d="M 8.203125 72.90625 
 L 55.078125 72.90625 
@@ -451,12 +453,12 @@ z
     <g id="xtick_3">
      <g id="line2d_3">
       <g>
-       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="128.124381" xlink:href="#mecf7f7767a" y="239.758125"></use>
+       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="131.314277" xlink:href="#m03581d7c51" y="239.758125"></use>
       </g>
      </g>
      <g id="text_3">
       <!-- −0.50 -->
-      <g style="fill:#ffffff;" transform="translate(112.801725 254.356562)scale(0.1 -0.1)">
+      <g style="fill:#ffffff;" transform="translate(115.99162 254.356562)scale(0.1 -0.1)">
        <use xlink:href="#DejaVuSans-8722"></use>
        <use x="83.789062" xlink:href="#DejaVuSans-48"></use>
        <use x="147.412109" xlink:href="#DejaVuSans-46"></use>
@@ -468,12 +470,12 @@ z
     <g id="xtick_4">
      <g id="line2d_4">
       <g>
-       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="167.175888" xlink:href="#mecf7f7767a" y="239.758125"></use>
+       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="170.448007" xlink:href="#m03581d7c51" y="239.758125"></use>
       </g>
      </g>
      <g id="text_4">
       <!-- −0.25 -->
-      <g style="fill:#ffffff;" transform="translate(151.853232 254.356562)scale(0.1 -0.1)">
+      <g style="fill:#ffffff;" transform="translate(155.12535 254.356562)scale(0.1 -0.1)">
        <defs>
         <path d="M 19.1875 8.296875 
 L 53.609375 8.296875 
@@ -511,12 +513,12 @@ z
     <g id="xtick_5">
      <g id="line2d_5">
       <g>
-       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="206.227396" xlink:href="#mecf7f7767a" y="239.758125"></use>
+       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="209.581737" xlink:href="#m03581d7c51" y="239.758125"></use>
       </g>
      </g>
      <g id="text_5">
       <!-- 0.00 -->
-      <g style="fill:#ffffff;" transform="translate(195.094583 254.356562)scale(0.1 -0.1)">
+      <g style="fill:#ffffff;" transform="translate(198.448924 254.356562)scale(0.1 -0.1)">
        <use xlink:href="#DejaVuSans-48"></use>
        <use x="63.623047" xlink:href="#DejaVuSans-46"></use>
        <use x="95.410156" xlink:href="#DejaVuSans-48"></use>
@@ -527,12 +529,12 @@ z
     <g id="xtick_6">
      <g id="line2d_6">
       <g>
-       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="245.278903" xlink:href="#mecf7f7767a" y="239.758125"></use>
+       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="248.715467" xlink:href="#m03581d7c51" y="239.758125"></use>
       </g>
      </g>
      <g id="text_6">
       <!-- 0.25 -->
-      <g style="fill:#ffffff;" transform="translate(234.14609 254.356562)scale(0.1 -0.1)">
+      <g style="fill:#ffffff;" transform="translate(237.582654 254.356562)scale(0.1 -0.1)">
        <use xlink:href="#DejaVuSans-48"></use>
        <use x="63.623047" xlink:href="#DejaVuSans-46"></use>
        <use x="95.410156" xlink:href="#DejaVuSans-50"></use>
@@ -543,12 +545,12 @@ z
     <g id="xtick_7">
      <g id="line2d_7">
       <g>
-       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="284.33041" xlink:href="#mecf7f7767a" y="239.758125"></use>
+       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="287.849197" xlink:href="#m03581d7c51" y="239.758125"></use>
       </g>
      </g>
      <g id="text_7">
       <!-- 0.50 -->
-      <g style="fill:#ffffff;" transform="translate(273.197598 254.356562)scale(0.1 -0.1)">
+      <g style="fill:#ffffff;" transform="translate(276.716384 254.356562)scale(0.1 -0.1)">
        <use xlink:href="#DejaVuSans-48"></use>
        <use x="63.623047" xlink:href="#DejaVuSans-46"></use>
        <use x="95.410156" xlink:href="#DejaVuSans-53"></use>
@@ -559,12 +561,12 @@ z
     <g id="xtick_8">
      <g id="line2d_8">
       <g>
-       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="323.381917" xlink:href="#mecf7f7767a" y="239.758125"></use>
+       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="326.982927" xlink:href="#m03581d7c51" y="239.758125"></use>
       </g>
      </g>
      <g id="text_8">
       <!-- 0.75 -->
-      <g style="fill:#ffffff;" transform="translate(312.249105 254.356562)scale(0.1 -0.1)">
+      <g style="fill:#ffffff;" transform="translate(315.850114 254.356562)scale(0.1 -0.1)">
        <use xlink:href="#DejaVuSans-48"></use>
        <use x="63.623047" xlink:href="#DejaVuSans-46"></use>
        <use x="95.410156" xlink:href="#DejaVuSans-55"></use>
@@ -575,12 +577,12 @@ z
     <g id="xtick_9">
      <g id="line2d_9">
       <g>
-       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="362.433425" xlink:href="#mecf7f7767a" y="239.758125"></use>
+       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="366.116657" xlink:href="#m03581d7c51" y="239.758125"></use>
       </g>
      </g>
      <g id="text_9">
       <!-- 1.00 -->
-      <g style="fill:#ffffff;" transform="translate(351.300612 254.356562)scale(0.1 -0.1)">
+      <g style="fill:#ffffff;" transform="translate(354.983844 254.356562)scale(0.1 -0.1)">
        <use xlink:href="#DejaVuSans-49"></use>
        <use x="63.623047" xlink:href="#DejaVuSans-46"></use>
        <use x="95.410156" xlink:href="#DejaVuSans-48"></use>
@@ -782,15 +784,15 @@ z
       <defs>
        <path d="M 0 0 
 L -3.5 0 
-" id="mad748df481" style="stroke:#ffffff;stroke-width:0.8;"></path>
+" id="m411ef59287" style="stroke:#ffffff;stroke-width:0.8;"></path>
       </defs>
       <g>
-       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="42.620313" xlink:href="#mad748df481" y="218.200514"></use>
+       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="42.620313" xlink:href="#m411ef59287" y="216.287802"></use>
       </g>
      </g>
      <g id="text_11">
       <!-- −3 -->
-      <g style="fill:#ffffff;" transform="translate(20.878125 221.999733)scale(0.1 -0.1)">
+      <g style="fill:#ffffff;" transform="translate(20.878125 220.087021)scale(0.1 -0.1)">
        <defs>
         <path d="M 40.578125 39.3125 
 Q 47.65625 37.796875 51.625 33 
@@ -833,12 +835,12 @@ z
     <g id="ytick_2">
      <g id="line2d_11">
       <g>
-       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="42.620313" xlink:href="#mad748df481" y="170.401048"></use>
+       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="42.620313" xlink:href="#m411ef59287" y="175.424148"></use>
       </g>
      </g>
      <g id="text_12">
       <!-- −2 -->
-      <g style="fill:#ffffff;" transform="translate(20.878125 174.200266)scale(0.1 -0.1)">
+      <g style="fill:#ffffff;" transform="translate(20.878125 179.223367)scale(0.1 -0.1)">
        <use xlink:href="#DejaVuSans-8722"></use>
        <use x="83.789062" xlink:href="#DejaVuSans-50"></use>
       </g>
@@ -847,12 +849,12 @@ z
     <g id="ytick_3">
      <g id="line2d_12">
       <g>
-       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="42.620313" xlink:href="#mad748df481" y="122.601581"></use>
+       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="42.620313" xlink:href="#m411ef59287" y="134.560494"></use>
       </g>
      </g>
      <g id="text_13">
       <!-- −1 -->
-      <g style="fill:#ffffff;" transform="translate(20.878125 126.400799)scale(0.1 -0.1)">
+      <g style="fill:#ffffff;" transform="translate(20.878125 138.359713)scale(0.1 -0.1)">
        <use xlink:href="#DejaVuSans-8722"></use>
        <use x="83.789062" xlink:href="#DejaVuSans-49"></use>
       </g>
@@ -861,12 +863,12 @@ z
     <g id="ytick_4">
      <g id="line2d_13">
       <g>
-       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="42.620313" xlink:href="#mad748df481" y="74.802114"></use>
+       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="42.620313" xlink:href="#m411ef59287" y="93.69684"></use>
       </g>
      </g>
      <g id="text_14">
       <!-- 0 -->
-      <g style="fill:#ffffff;" transform="translate(29.257813 78.601333)scale(0.1 -0.1)">
+      <g style="fill:#ffffff;" transform="translate(29.257813 97.496059)scale(0.1 -0.1)">
        <use xlink:href="#DejaVuSans-48"></use>
       </g>
      </g>
@@ -874,12 +876,12 @@ z
     <g id="ytick_5">
      <g id="line2d_14">
       <g>
-       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="42.620313" xlink:href="#mad748df481" y="27.002647"></use>
+       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="42.620313" xlink:href="#m411ef59287" y="52.833186"></use>
       </g>
      </g>
      <g id="text_15">
       <!-- 1 -->
-      <g style="fill:#ffffff;" transform="translate(29.257813 30.801866)scale(0.1 -0.1)">
+      <g style="fill:#ffffff;" transform="translate(29.257813 56.632405)scale(0.1 -0.1)">
        <use xlink:href="#DejaVuSans-49"></use>
       </g>
      </g>
@@ -1118,7 +1120,7 @@ z
   </g>
  </g>
  <defs>
-  <clippath id="p1c24f85a4c">
+  <clippath id="pcbd4692731">
    <rect height="217.44" width="334.8" x="42.620313" y="22.318125"></rect>
   </clippath>
  </defs>
@@ -1142,8 +1144,9 @@ Our objective is to maximize the likelihood function plus a prior belief of what
 In this example we'll make a really stupid belief and say that it is equally possible to find the parameters anywhere on the real line: $P(\theta) \sim 1$.
 This simplifies the analysis, and we can then write the posterior as proportional to the likelihood only:</p>
 $$
-P(\theta | X,Y) = \prod_{n=1}^N N(y_n | \beta_0 + \beta x_n ,\sigma)
-$$
+P(\theta | X,Y) = \prod_{n=1}^N N(y_n | \beta_0 + \beta x_n ,\sigma^2)
+$$<p>We can implement this model in pytorch in the following way:</p>
+
 </div>
 </div>
 </div>
@@ -1155,22 +1158,26 @@ $$
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">BayesNet</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seed</span> <span class="o">=</span> <span class="mi">42</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
         <span class="c1"># Initialize the parameters with some random values</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">beta0</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">0.0</span><span class="p">]))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">beta</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">0.0</span><span class="p">]))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sigma</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.0</span><span class="p">]))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">beta0</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">((</span><span class="mi">1</span><span class="p">,)))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">beta</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">((</span><span class="mi">1</span><span class="p">,)))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sigma</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.0</span><span class="p">])</span> <span class="p">)</span> <span class="c1"># this has to be positive</span>
     
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">beta0</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">beta</span><span class="o">*</span><span class="n">x</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">beta0</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">beta</span><span class="o">*</span><span class="n">data</span><span class="p">[</span><span class="s1">'x'</span><span class="p">]</span>
 
-    <span class="k">def</span> <span class="nf">loglik</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">loglik</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+
         <span class="c1"># Evaluates the log of the likelihood given a set of X and Y</span>
-        <span class="n">yhat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">beta0</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">beta</span><span class="o">*</span><span class="n">x</span>
-        <span class="n">logprob</span> <span class="o">=</span> <span class="n">dist</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="n">yhat</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sigma</span><span class="p">)</span><span class="o">.</span><span class="n">log_prob</span><span class="p">(</span><span class="n">Y</span><span class="p">)</span>
+        <span class="n">yhat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">logprob</span> <span class="o">=</span> <span class="n">dist</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="n">yhat</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sigma</span><span class="o">.</span><span class="n">abs</span><span class="p">())</span><span class="o">.</span><span class="n">log_prob</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">'y'</span><span class="p">])</span>
         <span class="k">return</span> <span class="n">logprob</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">BayesNet</span><span class="p">()</span>
+    
+    <span class="k">def</span> <span class="nf">logpost</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">loglik</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -1187,7 +1194,8 @@ $$
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">loglik</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">BayesNet</span><span class="p">(</span><span class="n">seed</span> <span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">loglik</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -1202,7 +1210,7 @@ $$
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>tensor(-72.5810, grad_fn=&lt;SumBackward0&gt;)</pre>
+<pre>tensor(-101.8074, grad_fn=&lt;SumBackward0&gt;)</pre>
 </div>
 
 </div>
@@ -1243,7 +1251,8 @@ If it didnt improve, we may still move to that point depending on some probabili
 <li>
 <p>For each $n=1,2,3,...$ do the following:</p>
 <ol>
-<li>Sample a proposal $\theta_*$ using a proposal distribution: $\theta_* \sim J(\theta_* | \theta_{n-1})$ (for example a multivariate Normal distribution: $J(\theta_* | \theta_{n-1}) = N(\theta_* | \theta_{n-1}, I)$</li>
+<li>Sample a proposal $\theta_*$ using a proposal distribution: $\theta_* \sim J(\theta_* | \theta_{n-1})$ 
+(for example a multivariate Normal distribution: $J(\theta_* | \theta_{n-1}) = N(\theta_* | \theta_{n-1}, \alpha I)$)</li>
 <li>Compute "how much better this proposal is than the previous:</li>
 </ol>
 <p>$$ 
@@ -1253,13 +1262,14 @@ $$</p>
 <li>Set  </li>
 </ol>
 <p>$$
-\theta_n = \begin{cases}</p>
+\theta_n = 
+\begin{cases}</p>
 
-<pre><code>         \theta_* &amp; \text{with probability} \text{ min}(1,r) \\
-         \theta_{n-1} &amp; \text{if not}
-         \end{cases}
+<pre><code> \theta_* &amp; \text{with probability} \text{ min}(1,r) \\
+ \theta_{n-1} &amp; \text{if not}
 </code></pre>
-<p>$$</p>
+<p>\end{cases}
+ $$</p>
 </li>
 </ol>
 <p>There is <em>one</em> technical constraint on this proposal distribution $J$ and that is that it should be symmetric.
@@ -1267,10 +1277,128 @@ That means it should be just as likely to go in either direction: $J(\theta_a | 
 Our example above, a multivariate normal with the previous step as mean, satisfy this requirement.</p>
 <p>So why should this thing work? First, see that if we get a better set of parameter then $P(\theta_*|D) &gt; P(\theta_{n-1}|D)$ and the ratio is above 1. Then we will <em>always</em> move to the new value (with probability 1)!
 That is comforting. If I stand somewhere on a smooth mountain and only take a step whenever that step is upwards I can be pretty certain I reach the top!</p>
-<p>But what about that second term? What if we actually dont improve? Looking at the algorithm, that is the case when r is less than 1.</p>
-<h3 id="Learning-rate">
-<a class="anchor" href="#Learning-rate" aria-hidden="true"><span class="octicon octicon-link"></span></a>Learning rate<a class="anchor-link" href="#Learning-rate"> </a>
+<p>But what about that second term? What if we actually dont improve? Looking at the algorithm, that is the case when r is less than 1.
+We then have a positive possibility of moving anyways. Intuitively this is important for two reasons:</p>
+<ol>
+<li>We want to find a posterior <em>distribution</em> at the end. If we only moved whenever we improved we would end up with a final value.
+Actually moving in slightly worse directions will allow our parameters to wiggle around the optimal solution a little bit. 
+And luckily, this kind of wiggling will give us the posterior distribution!</li>
+<li>Having a positive probability of moving in wrong directions also gives us a chance to avoid local minima. In fact, since our proposal distribution has a positive probability of jumping to <em>any</em> set of parameter values from any point, one can prove that the metropolis mcmc algorithm will find the optimum if it just runs for long enough.</li>
+</ol>
+<h3 id="Step-size-aka-learning-rate">
+<a class="anchor" href="#Step-size-aka-learning-rate" aria-hidden="true"><span class="octicon octicon-link"></span></a>Step size aka learning rate<a class="anchor-link" href="#Step-size-aka-learning-rate"> </a>
 </h3>
+<p>Given that we choose a gaussian proposal distribution with mean of the previous parameter set, we still need to set the covariance matrix of the distribution. 
+In the example above it was $\alpha I$, where $\alpha &gt; 0$ and $I$ is the identity matrix.
+Given this parameterization $\alpha$ determines how far we should try to jump in the metropolis algorithm.
+A large $\alpha$ will make us often jump far, whereas a small $\alpha$ will make us jump shortly.
+If we do short jumps we are likely to get proposal parameters that does not perform too bad and the metropolis algorithm will often accept the new parameters, but we will take very short steps each time.
+On the other hand, if we do large jumps we may sometiems get very good gains, but they will also be very bad very often. Therefore larger values of $\alpha$ will cause the accept probability to be low, but with large gains whenver it accepts.</p>
+<p>This trade off looks very similar to learning rates in deep learning: Small steps will converge but slowly, and large steps takes giant leaps of faith and may not converge very well. The difference is of course that the metropolis algorithm will just not accept any proposals if you set $\alpha$ too high.
+There are more complicated algorithms that tries to auto-set $\alpha$, but for now we will just find a reasonable value (by trial and error) and stick to it.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Implementation-of-Metropolis-algorithm">
+<a class="anchor" href="#Implementation-of-Metropolis-algorithm" aria-hidden="true"><span class="octicon octicon-link"></span></a>Implementation of Metropolis algorithm<a class="anchor-link" href="#Implementation-of-Metropolis-algorithm"> </a>
+</h2>
+<p>Let us implement a small "optimizer" that finds the posterior distribution using the metropolis algorithm.
+The main component of this class is the <code>step()</code> function, and it goes through the steps above.
+In addition we have implemented a <code>fit()</code> function for the training loop and a dictionary that holds all the parameters values over iterations so we can look at them later:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">MetropolisOptimizer</span><span class="p">():</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">net</span><span class="p">,</span> <span class="n">alpha</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">net</span> <span class="o">=</span> <span class="n">net</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="n">alpha</span>
+    
+    <span class="nd">@torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="c1"># Step 1:</span>
+        <span class="n">proposal_net</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">net</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">par</span> <span class="ow">in</span> <span class="n">proposal_net</span><span class="o">.</span><span class="n">named_parameters</span><span class="p">():</span>
+            <span class="n">newpar</span> <span class="o">=</span> <span class="n">par</span> <span class="o">+</span> <span class="n">torch</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">par</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="p">)</span>
+            <span class="n">par</span><span class="o">.</span><span class="n">copy_</span><span class="p">(</span><span class="n">newpar</span><span class="p">)</span>
+        
+        <span class="c1"># Step 2: calculate ratio</span>
+        <span class="n">ratio</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">proposal_net</span><span class="o">.</span><span class="n">logpost</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">net</span><span class="o">.</span><span class="n">logpost</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+
+        <span class="c1"># Step 3: update with some probability:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span><span class="o">&lt;</span><span class="n">ratio</span><span class="p">)</span><span class="o">.</span><span class="n">bool</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">net</span> <span class="o">=</span> <span class="n">proposal_net</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">net</span>
+
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">num_steps</span><span class="o">=</span><span class="mi">1000</span><span class="p">):</span>
+        <span class="c1"># We create one tensor per parameter so that we can keep track of the parameter values over time:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parameter_trace</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span> <span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span> <span class="p">(</span><span class="n">num_steps</span><span class="p">,)</span> <span class="o">+</span> <span class="n">par</span><span class="o">.</span><span class="n">size</span><span class="p">())</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">par</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">net</span><span class="o">.</span><span class="n">named_parameters</span><span class="p">()}</span>
+
+        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_steps</span><span class="p">):</span>
+            <span class="n">current_net</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">current_net</span><span class="o">.</span><span class="n">named_parameters</span><span class="p">():</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">parameter_trace</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="n">s</span><span class="p">,]</span> <span class="o">=</span> <span class="n">val</span><span class="o">.</span><span class="n">data</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">BayesNet</span><span class="p">()</span>
+<span class="n">trainer</span> <span class="o">=</span> <span class="n">MetropolisOptimizer</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.02</span><span class="p">)</span>
+<span class="c1"># Train the model (and take the time):</span>
+<span class="o">%</span><span class="k">time</span> trainer.fit(data, num_steps=5000)
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>CPU times: user 2.02 s, sys: 13.9 ms, total: 2.04 s
+Wall time: 2.28 s
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>True</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>If we visualize all Since we're lucky and only have 3 parameters we can visualize them.
+We see that all three variables first trods its way towards the area were its "supposed to be" and then starts wiggling around that area. This is the posterior distribution!</p>
+<p>In addition, we visualize a two dimensional plot of where $\beta_0$ and $\beta$ are over all steps. We can see that they start in the lower right area and then quickly iterates itself towards where the posterior distributions should be in the upper left corner:</p>
+
 </div>
 </div>
 </div>
