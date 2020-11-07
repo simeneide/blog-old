@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Bayesian Neural Nets and how to train them | fastpages</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Bayesian Neural Nets and how to train them" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="An intuitive review of training bayesian neural nets" />
+<meta property="og:description" content="An intuitive review of training bayesian neural nets" />
+<link rel="canonical" href="https://simeneide.github.io/blog/bayesian%20neural%20net/2020/11/06/bayesian-deep-learning.html" />
+<meta property="og:url" content="https://simeneide.github.io/blog/bayesian%20neural%20net/2020/11/06/bayesian-deep-learning.html" />
+<meta property="og:site_name" content="fastpages" />
+<meta property="og:image" content="https://simeneide.github.io/blog/images/chart-preview.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-11-06T00:00:00-06:00" />
+<script type="application/ld+json">
+{"description":"An intuitive review of training bayesian neural nets","url":"https://simeneide.github.io/blog/bayesian%20neural%20net/2020/11/06/bayesian-deep-learning.html","@type":"BlogPosting","headline":"Bayesian Neural Nets and how to train them","dateModified":"2020-11-06T00:00:00-06:00","datePublished":"2020-11-06T00:00:00-06:00","image":"https://simeneide.github.io/blog/images/chart-preview.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://simeneide.github.io/blog/bayesian%20neural%20net/2020/11/06/bayesian-deep-learning.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://simeneide.github.io/blog/feed.xml" title="fastpages" /><link rel="shortcut icon" type="image/x-icon" href="/blog/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/blog/">fastpages</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/blog/about/">About Me</a><a class="page-link" href="/blog/search/">Search</a><a class="page-link" href="/blog/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Bayesian Neural Nets and how to train them</h1><p class="page-description">An intuitive review of training bayesian neural nets</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-11-06T00:00:00-06:00" itemprop="datePublished">
+        Nov 6, 2020
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      3 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/blog/categories/#bayesian neural net">bayesian neural net</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          <div class="px-2">
+
+    <a href="https://github.com/simeneide/blog/tree/master/_notebooks/2020-11-06-bayesian-deep-learning.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/blog/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/simeneide/blog/master?filepath=_notebooks%2F2020-11-06-bayesian-deep-learning.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/blog/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/simeneide/blog/blob/master/_notebooks/2020-11-06-bayesian-deep-learning.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/blog/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul class="section-nav">
+<li class="toc-entry toc-h1"><a href="#General-setup">General setup </a></li>
+<li class="toc-entry toc-h1"><a href="#Markov-Chain-Monte-Carlo-(MCMC)">Markov Chain Monte Carlo (MCMC) </a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#Metropolis-MCMC-algorithm">Metropolis MCMC algorithm </a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#Learning-rate">Learning rate </a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#Variational-Inference">Variational Inference </a></li>
+<li class="toc-entry toc-h1"><a href="#Stochastic-Gradient-Markov-Chain-Monte-Carlo-(SG-MCMC)">Stochastic Gradient Markov Chain Monte Carlo (SG-MCMC) </a></li>
+</ul><!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2020-11-06-bayesian-deep-learning.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="General-setup">
+<a class="anchor" href="#General-setup" aria-hidden="true"><span class="octicon octicon-link"></span></a>General setup<a class="anchor-link" href="#General-setup"> </a>
+</h1>
+<p>We have a dataset $D = [\{x_i, y_i \}, i=1,...,n]$, and have defined a likelihood function $P(D|\theta)$ where $\theta \in R^d$ are some parameters defined in the model. We have also already defined a prior for these parameters $P(\theta)$. The posterior distribution can then be written as</p>
+$$ 
+P(\theta | D) = \frac{P(D|\theta) * P(\theta)}{P(D)} \propto P(D|\theta) * P(\theta)
+$$<p>Finding $P(D)$ is impossible for all but the simplest cases, and as we are interested in complicated likelihood functions such as neural networks, it will clearly not work for us. 
+Therefore, we only have the posterior distribution up to a constant.
+Luckily, there has been developed multiple techniques that can find an approximation to the posterior distribution that only requires 
+There exist multiple techniques to infer the posterior distribution of a bayesian neural network:</p>
+<ul>
+<li>Variational Inference</li>
+<li>Dropout</li>
+<li>SWAG</li>
+<li>Markov Chain Monte Carlo</li>
+<li>Stochastic Markov Chain Monte Carlo (SG-MCMC)</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Markov-Chain-Monte-Carlo-(MCMC)">
+<a class="anchor" href="#Markov-Chain-Monte-Carlo-(MCMC)" aria-hidden="true"><span class="octicon octicon-link"></span></a>Markov Chain Monte Carlo (MCMC)<a class="anchor-link" href="#Markov-Chain-Monte-Carlo-(MCMC)"> </a>
+</h1>
+<p>MCMC is the "traditional" way of finding the posterior distribution.
+It is an iterative algorithm (the markov chain name) that is updating the belief of what the model parameters $\theta$ should be. I.e. we end up with a loong chain of parameter values: $\theta_1, \theta_2, ..., \theta_{n}$. 
+However, we are not looking for a fixed value, but a distribution. Luckily, there are theory that tells us that if you run this sequence for long enough, then all values $\theta_n$ will be samples from the posterior distribution. Voila!</p>
+<p>So how does it work?</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Metropolis-MCMC-algorithm">
+<a class="anchor" href="#Metropolis-MCMC-algorithm" aria-hidden="true"><span class="octicon octicon-link"></span></a>Metropolis MCMC algorithm<a class="anchor-link" href="#Metropolis-MCMC-algorithm"> </a>
+</h2>
+<p>The metropolis MCMC algorithms does nothing but starting in some random position $\theta_0$ and randomly tries to go in a direction (e.g. add a Normal distribution $\theta_1 = \theta_0 + N(0,1)$). 
+If we improved (meaning that $P(\theta | D)$ increased) we use that new value. 
+If it didnt improve, we may still move to that point depending on some probability.</p>
+<p>[ADD A DRAWING HERE THAT SHOWS ]</p>
+<p>Formally the algorithm looks like this:</p>
+<ol>
+<li>Initialize a starting point $\theta_0$. This can either be random or somewhere you think is reasonable. For instance, you can start in the center of your prior distribution $argmax_{\theta} P(\theta)$.</li>
+<li>
+<p>For each $n=1,2,3,...$ do the following:</p>
+<ol>
+<li>Sample a proposal $\theta_*$ using a proposal distribution: $\theta_* \sim J(\theta_* | \theta_{n-1})$ (for example a multivariate Normal distribution: $J(\theta_* | \theta_{n-1}) = N(\theta_* | \theta_{n-1}, I)$</li>
+<li>Compute "how much better this proposal is than the previous:</li>
+</ol>
+<p>$$ 
+r = \frac{P(\theta_*|D)}{P(\theta_{n-1}|D)} 
+$$</p>
+<ol>
+<li>Set  </li>
+</ol>
+<p>$$
+\theta_n = \begin{cases}</p>
+
+<pre><code>         \theta_* &amp; \text{with probability} \text{ min}(1,r) \\
+         \theta_{n-1} &amp; \text{if not}
+         \end{cases}
+</code></pre>
+<p>$$</p>
+</li>
+</ol>
+<p>There is <em>one</em> technical constraint on this proposal distribution $J$ and that is that it should be symmetric.
+That means it should be just as likely to go in either direction: $J(\theta_a | \theta_b) = J(\theta_b | \theta_a)$. 
+Our example above, a multivariate normal with the previous step as mean, satisfy this requirement.</p>
+<p>So why should this thing work? First, see that if we get a better set of parameter then $P(\theta_*|D) &gt; P(\theta_{n-1}|D)$ and the ratio is above 1. Then we will <em>always</em> move to the new value (with probability 1)!
+That is comforting. If I stand somewhere on a smooth mountain and only take a step whenever that step is upwards I can be pretty certain I reach the top!</p>
+<p>But what about that second term? What if we actually dont improve? Looking at the algorithm, that is the case when r is less than 1.</p>
+<h3 id="Learning-rate">
+<a class="anchor" href="#Learning-rate" aria-hidden="true"><span class="octicon octicon-link"></span></a>Learning rate<a class="anchor-link" href="#Learning-rate"> </a>
+</h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>torch.Size([10, 1, 2])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="kn">import</span> <span class="nn">torch.distributions</span> <span class="k">as</span> <span class="nn">dist</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">dist</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">2</span><span class="p">,)),</span> <span class="mf">0.1</span><span class="p">)</span><span class="o">.</span><span class="n">sample</span><span class="p">((</span><span class="mi">30</span><span class="p">,))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">[:,</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&lt;matplotlib.collections.PathCollection at 0x7f923fe13410&gt;</pre>
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_svg output_subarea ">
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+&lt;!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"&gt;
+<!-- Created with matplotlib (https://matplotlib.org/) -->
+<svg height="248.518125pt" version="1.1" viewbox="0 0 385.200721 248.518125" width="385.200721pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <metadata>
+  <rdf xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <work>
+    <type rdf:resource="http://purl.org/dc/dcmitype/StillImage"></type>
+    <date>2020-11-07T13:46:15.896708</date>
+    <format>image/svg+xml</format>
+    <creator>
+     <agent>
+      <title>Matplotlib v3.3.2, https://matplotlib.org/</title>
+     </agent>
+    </creator>
+   </work>
+  </rdf>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linecap:butt;stroke-linejoin:round;}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 248.518125 
+L 385.200721 248.518125 
+L 385.200721 0 
+L 0 0 
+z
+"></path>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 36.465625 224.64 
+L 371.265625 224.64 
+L 371.265625 7.2 
+L 36.465625 7.2 
+z
+"></path>
+   </g>
+   <g id="PathCollection_1">
+    <defs>
+     <path d="M 0 3 
+C 0.795609 3 1.55874 2.683901 2.12132 2.12132 
+C 2.683901 1.55874 3 0.795609 3 0 
+C 3 -0.795609 2.683901 -1.55874 2.12132 -2.12132 
+C 1.55874 -2.683901 0.795609 -3 0 -3 
+C -0.795609 -3 -1.55874 -2.683901 -2.12132 -2.12132 
+C -2.683901 -1.55874 -3 -0.795609 -3 0 
+C -3 0.795609 -2.683901 1.55874 -2.12132 2.12132 
+C -1.55874 2.683901 -0.795609 3 0 3 
+z
+" id="m7c968b6976" style="stroke:#8dd3c7;"></path>
+    </defs>
+    <g clip-path="url(#p33cd4579e4)">
+     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="250.040707" xlink:href="#m7c968b6976" y="150.293631"></use>
+     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="233.687136" xlink:href="#m7c968b6976" y="106.605857"></use>
+     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="108.760603" xlink:href="#m7c968b6976" y="101.688426"></use>
+     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="102.161412" xlink:href="#m7c968b6976" y="80.800091"></use>
+     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="101.115544" xlink:href="#m7c968b6976" y="203.393669"></use>
+     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="227.35407" xlink:href="#m7c968b6976" y="75.729559"></use>
+     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="208.912861" xlink:href="#m7c968b6976" y="28.371807"></use>
+     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="355.305589" xlink:href="#m7c968b6976" y="180.225183"></use>
+     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="298.75523" xlink:href="#m7c968b6976" y="40.85245"></use>
+     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="199.178497" xlink:href="#m7c968b6976" y="160.763262"></use>
+     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="201.744198" xlink:href="#m7c968b6976" y="104.109522"></use>
+     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="181.378868" xlink:href="#m7c968b6976" y="200.551803"></use>
+     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="323.334581" xlink:href="#m7c968b6976" y="101.545574"></use>
+     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="213.58836" xlink:href="#m7c968b6976" y="144.860764"></use>
+     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="229.768169" xlink:href="#m7c968b6976" y="90.56011"></use>
+     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="144.315586" xlink:href="#m7c968b6976" y="204.48949"></use>
+     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="100.579432" xlink:href="#m7c968b6976" y="122.13454"></use>
+     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="250.717364" xlink:href="#m7c968b6976" y="158.113985"></use>
+     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="225.965585" xlink:href="#m7c968b6976" y="158.175599"></use>
+     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="51.683807" xlink:href="#m7c968b6976" y="108.214174"></use>
+     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="231.383224" xlink:href="#m7c968b6976" y="164.341316"></use>
+     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="356.047443" xlink:href="#m7c968b6976" y="134.087314"></use>
+     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="320.444373" xlink:href="#m7c968b6976" y="62.504941"></use>
+     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="166.514056" xlink:href="#m7c968b6976" y="214.756364"></use>
+     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="140.286385" xlink:href="#m7c968b6976" y="90.842477"></use>
+     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="348.257073" xlink:href="#m7c968b6976" y="65.641409"></use>
+     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="182.264508" xlink:href="#m7c968b6976" y="17.083636"></use>
+     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="258.842393" xlink:href="#m7c968b6976" y="61.317076"></use>
+     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="305.085913" xlink:href="#m7c968b6976" y="131.321284"></use>
+     <use style="fill:#8dd3c7;stroke:#8dd3c7;" x="164.772849" xlink:href="#m7c968b6976" y="151.638926"></use>
+    </g>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <defs>
+       <path d="M 0 0 
+L 0 3.5 
+" id="me8de5f6aad" style="stroke:#ffffff;stroke-width:0.8;"></path>
+      </defs>
+      <g>
+       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="47.036464" xlink:href="#me8de5f6aad" y="224.64"></use>
+      </g>
+     </g>
+     <g id="text_1">
+      <!-- 0.80 -->
+      <g style="fill:#ffffff;" transform="translate(35.903652 239.238437)scale(0.1 -0.1)">
+       <defs>
+        <path d="M 31.78125 66.40625 
+Q 24.171875 66.40625 20.328125 58.90625 
+Q 16.5 51.421875 16.5 36.375 
+Q 16.5 21.390625 20.328125 13.890625 
+Q 24.171875 6.390625 31.78125 6.390625 
+Q 39.453125 6.390625 43.28125 13.890625 
+Q 47.125 21.390625 47.125 36.375 
+Q 47.125 51.421875 43.28125 58.90625 
+Q 39.453125 66.40625 31.78125 66.40625 
+z
+M 31.78125 74.21875 
+Q 44.046875 74.21875 50.515625 64.515625 
+Q 56.984375 54.828125 56.984375 36.375 
+Q 56.984375 17.96875 50.515625 8.265625 
+Q 44.046875 -1.421875 31.78125 -1.421875 
+Q 19.53125 -1.421875 13.0625 8.265625 
+Q 6.59375 17.96875 6.59375 36.375 
+Q 6.59375 54.828125 13.0625 64.515625 
+Q 19.53125 74.21875 31.78125 74.21875 
+z
+" id="DejaVuSans-48"></path>
+        <path d="M 10.6875 12.40625 
+L 21 12.40625 
+L 21 0 
+L 10.6875 0 
+z
+" id="DejaVuSans-46"></path>
+        <path d="M 31.78125 34.625 
+Q 24.75 34.625 20.71875 30.859375 
+Q 16.703125 27.09375 16.703125 20.515625 
+Q 16.703125 13.921875 20.71875 10.15625 
+Q 24.75 6.390625 31.78125 6.390625 
+Q 38.8125 6.390625 42.859375 10.171875 
+Q 46.921875 13.96875 46.921875 20.515625 
+Q 46.921875 27.09375 42.890625 30.859375 
+Q 38.875 34.625 31.78125 34.625 
+z
+M 21.921875 38.8125 
+Q 15.578125 40.375 12.03125 44.71875 
+Q 8.5 49.078125 8.5 55.328125 
+Q 8.5 64.0625 14.71875 69.140625 
+Q 20.953125 74.21875 31.78125 74.21875 
+Q 42.671875 74.21875 48.875 69.140625 
+Q 55.078125 64.0625 55.078125 55.328125 
+Q 55.078125 49.078125 51.53125 44.71875 
+Q 48 40.375 41.703125 38.8125 
+Q 48.828125 37.15625 52.796875 32.3125 
+Q 56.78125 27.484375 56.78125 20.515625 
+Q 56.78125 9.90625 50.3125 4.234375 
+Q 43.84375 -1.421875 31.78125 -1.421875 
+Q 19.734375 -1.421875 13.25 4.234375 
+Q 6.78125 9.90625 6.78125 20.515625 
+Q 6.78125 27.484375 10.78125 32.3125 
+Q 14.796875 37.15625 21.921875 38.8125 
+z
+M 18.3125 54.390625 
+Q 18.3125 48.734375 21.84375 45.5625 
+Q 25.390625 42.390625 31.78125 42.390625 
+Q 38.140625 42.390625 41.71875 45.5625 
+Q 45.3125 48.734375 45.3125 54.390625 
+Q 45.3125 60.0625 41.71875 63.234375 
+Q 38.140625 66.40625 31.78125 66.40625 
+Q 25.390625 66.40625 21.84375 63.234375 
+Q 18.3125 60.0625 18.3125 54.390625 
+z
+" id="DejaVuSans-56"></path>
+       </defs>
+       <use xlink:href="#DejaVuSans-48"></use>
+       <use x="63.623047" xlink:href="#DejaVuSans-46"></use>
+       <use x="95.410156" xlink:href="#DejaVuSans-56"></use>
+       <use x="159.033203" xlink:href="#DejaVuSans-48"></use>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_2">
+      <g>
+       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="87.015395" xlink:href="#me8de5f6aad" y="224.64"></use>
+      </g>
+     </g>
+     <g id="text_2">
+      <!-- 0.85 -->
+      <g style="fill:#ffffff;" transform="translate(75.882582 239.238437)scale(0.1 -0.1)">
+       <defs>
+        <path d="M 10.796875 72.90625 
+L 49.515625 72.90625 
+L 49.515625 64.59375 
+L 19.828125 64.59375 
+L 19.828125 46.734375 
+Q 21.96875 47.46875 24.109375 47.828125 
+Q 26.265625 48.1875 28.421875 48.1875 
+Q 40.625 48.1875 47.75 41.5 
+Q 54.890625 34.8125 54.890625 23.390625 
+Q 54.890625 11.625 47.5625 5.09375 
+Q 40.234375 -1.421875 26.90625 -1.421875 
+Q 22.3125 -1.421875 17.546875 -0.640625 
+Q 12.796875 0.140625 7.71875 1.703125 
+L 7.71875 11.625 
+Q 12.109375 9.234375 16.796875 8.0625 
+Q 21.484375 6.890625 26.703125 6.890625 
+Q 35.15625 6.890625 40.078125 11.328125 
+Q 45.015625 15.765625 45.015625 23.390625 
+Q 45.015625 31 40.078125 35.4375 
+Q 35.15625 39.890625 26.703125 39.890625 
+Q 22.75 39.890625 18.8125 39.015625 
+Q 14.890625 38.140625 10.796875 36.28125 
+z
+" id="DejaVuSans-53"></path>
+       </defs>
+       <use xlink:href="#DejaVuSans-48"></use>
+       <use x="63.623047" xlink:href="#DejaVuSans-46"></use>
+       <use x="95.410156" xlink:href="#DejaVuSans-56"></use>
+       <use x="159.033203" xlink:href="#DejaVuSans-53"></use>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_3">
+      <g>
+       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="126.994325" xlink:href="#me8de5f6aad" y="224.64"></use>
+      </g>
+     </g>
+     <g id="text_3">
+      <!-- 0.90 -->
+      <g style="fill:#ffffff;" transform="translate(115.861513 239.238437)scale(0.1 -0.1)">
+       <defs>
+        <path d="M 10.984375 1.515625 
+L 10.984375 10.5 
+Q 14.703125 8.734375 18.5 7.8125 
+Q 22.3125 6.890625 25.984375 6.890625 
+Q 35.75 6.890625 40.890625 13.453125 
+Q 46.046875 20.015625 46.78125 33.40625 
+Q 43.953125 29.203125 39.59375 26.953125 
+Q 35.25 24.703125 29.984375 24.703125 
+Q 19.046875 24.703125 12.671875 31.3125 
+Q 6.296875 37.9375 6.296875 49.421875 
+Q 6.296875 60.640625 12.9375 67.421875 
+Q 19.578125 74.21875 30.609375 74.21875 
+Q 43.265625 74.21875 49.921875 64.515625 
+Q 56.59375 54.828125 56.59375 36.375 
+Q 56.59375 19.140625 48.40625 8.859375 
+Q 40.234375 -1.421875 26.421875 -1.421875 
+Q 22.703125 -1.421875 18.890625 -0.6875 
+Q 15.09375 0.046875 10.984375 1.515625 
+z
+M 30.609375 32.421875 
+Q 37.25 32.421875 41.125 36.953125 
+Q 45.015625 41.5 45.015625 49.421875 
+Q 45.015625 57.28125 41.125 61.84375 
+Q 37.25 66.40625 30.609375 66.40625 
+Q 23.96875 66.40625 20.09375 61.84375 
+Q 16.21875 57.28125 16.21875 49.421875 
+Q 16.21875 41.5 20.09375 36.953125 
+Q 23.96875 32.421875 30.609375 32.421875 
+z
+" id="DejaVuSans-57"></path>
+       </defs>
+       <use xlink:href="#DejaVuSans-48"></use>
+       <use x="63.623047" xlink:href="#DejaVuSans-46"></use>
+       <use x="95.410156" xlink:href="#DejaVuSans-57"></use>
+       <use x="159.033203" xlink:href="#DejaVuSans-48"></use>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_4">
+      <g>
+       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="166.973256" xlink:href="#me8de5f6aad" y="224.64"></use>
+      </g>
+     </g>
+     <g id="text_4">
+      <!-- 0.95 -->
+      <g style="fill:#ffffff;" transform="translate(155.840443 239.238437)scale(0.1 -0.1)">
+       <use xlink:href="#DejaVuSans-48"></use>
+       <use x="63.623047" xlink:href="#DejaVuSans-46"></use>
+       <use x="95.410156" xlink:href="#DejaVuSans-57"></use>
+       <use x="159.033203" xlink:href="#DejaVuSans-53"></use>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_5">
+     <g id="line2d_5">
+      <g>
+       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="206.952187" xlink:href="#me8de5f6aad" y="224.64"></use>
+      </g>
+     </g>
+     <g id="text_5">
+      <!-- 1.00 -->
+      <g style="fill:#ffffff;" transform="translate(195.819374 239.238437)scale(0.1 -0.1)">
+       <defs>
+        <path d="M 12.40625 8.296875 
+L 28.515625 8.296875 
+L 28.515625 63.921875 
+L 10.984375 60.40625 
+L 10.984375 69.390625 
+L 28.421875 72.90625 
+L 38.28125 72.90625 
+L 38.28125 8.296875 
+L 54.390625 8.296875 
+L 54.390625 0 
+L 12.40625 0 
+z
+" id="DejaVuSans-49"></path>
+       </defs>
+       <use xlink:href="#DejaVuSans-49"></use>
+       <use x="63.623047" xlink:href="#DejaVuSans-46"></use>
+       <use x="95.410156" xlink:href="#DejaVuSans-48"></use>
+       <use x="159.033203" xlink:href="#DejaVuSans-48"></use>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_6">
+     <g id="line2d_6">
+      <g>
+       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="246.931117" xlink:href="#me8de5f6aad" y="224.64"></use>
+      </g>
+     </g>
+     <g id="text_6">
+      <!-- 1.05 -->
+      <g style="fill:#ffffff;" transform="translate(235.798305 239.238437)scale(0.1 -0.1)">
+       <use xlink:href="#DejaVuSans-49"></use>
+       <use x="63.623047" xlink:href="#DejaVuSans-46"></use>
+       <use x="95.410156" xlink:href="#DejaVuSans-48"></use>
+       <use x="159.033203" xlink:href="#DejaVuSans-53"></use>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_7">
+     <g id="line2d_7">
+      <g>
+       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="286.910048" xlink:href="#me8de5f6aad" y="224.64"></use>
+      </g>
+     </g>
+     <g id="text_7">
+      <!-- 1.10 -->
+      <g style="fill:#ffffff;" transform="translate(275.777235 239.238437)scale(0.1 -0.1)">
+       <use xlink:href="#DejaVuSans-49"></use>
+       <use x="63.623047" xlink:href="#DejaVuSans-46"></use>
+       <use x="95.410156" xlink:href="#DejaVuSans-49"></use>
+       <use x="159.033203" xlink:href="#DejaVuSans-48"></use>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_8">
+     <g id="line2d_8">
+      <g>
+       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="326.888978" xlink:href="#me8de5f6aad" y="224.64"></use>
+      </g>
+     </g>
+     <g id="text_8">
+      <!-- 1.15 -->
+      <g style="fill:#ffffff;" transform="translate(315.756166 239.238437)scale(0.1 -0.1)">
+       <use xlink:href="#DejaVuSans-49"></use>
+       <use x="63.623047" xlink:href="#DejaVuSans-46"></use>
+       <use x="95.410156" xlink:href="#DejaVuSans-49"></use>
+       <use x="159.033203" xlink:href="#DejaVuSans-53"></use>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_9">
+     <g id="line2d_9">
+      <g>
+       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="366.867909" xlink:href="#me8de5f6aad" y="224.64"></use>
+      </g>
+     </g>
+     <g id="text_9">
+      <!-- 1.20 -->
+      <g style="fill:#ffffff;" transform="translate(355.735096 239.238437)scale(0.1 -0.1)">
+       <defs>
+        <path d="M 19.1875 8.296875 
+L 53.609375 8.296875 
+L 53.609375 0 
+L 7.328125 0 
+L 7.328125 8.296875 
+Q 12.9375 14.109375 22.625 23.890625 
+Q 32.328125 33.6875 34.8125 36.53125 
+Q 39.546875 41.84375 41.421875 45.53125 
+Q 43.3125 49.21875 43.3125 52.78125 
+Q 43.3125 58.59375 39.234375 62.25 
+Q 35.15625 65.921875 28.609375 65.921875 
+Q 23.96875 65.921875 18.8125 64.3125 
+Q 13.671875 62.703125 7.8125 59.421875 
+L 7.8125 69.390625 
+Q 13.765625 71.78125 18.9375 73 
+Q 24.125 74.21875 28.421875 74.21875 
+Q 39.75 74.21875 46.484375 68.546875 
+Q 53.21875 62.890625 53.21875 53.421875 
+Q 53.21875 48.921875 51.53125 44.890625 
+Q 49.859375 40.875 45.40625 35.40625 
+Q 44.1875 33.984375 37.640625 27.21875 
+Q 31.109375 20.453125 19.1875 8.296875 
+z
+" id="DejaVuSans-50"></path>
+       </defs>
+       <use xlink:href="#DejaVuSans-49"></use>
+       <use x="63.623047" xlink:href="#DejaVuSans-46"></use>
+       <use x="95.410156" xlink:href="#DejaVuSans-50"></use>
+       <use x="159.033203" xlink:href="#DejaVuSans-48"></use>
+      </g>
+     </g>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_10">
+      <defs>
+       <path d="M 0 0 
+L -3.5 0 
+" id="mdb56b657dd" style="stroke:#ffffff;stroke-width:0.8;"></path>
+      </defs>
+      <g>
+       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="36.465625" xlink:href="#mdb56b657dd" y="221.214197"></use>
+      </g>
+     </g>
+     <g id="text_10">
+      <!-- 0.85 -->
+      <g style="fill:#ffffff;" transform="translate(7.2 225.013416)scale(0.1 -0.1)">
+       <use xlink:href="#DejaVuSans-48"></use>
+       <use x="63.623047" xlink:href="#DejaVuSans-46"></use>
+       <use x="95.410156" xlink:href="#DejaVuSans-56"></use>
+       <use x="159.033203" xlink:href="#DejaVuSans-53"></use>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_11">
+      <g>
+       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="36.465625" xlink:href="#mdb56b657dd" y="187.890235"></use>
+      </g>
+     </g>
+     <g id="text_11">
+      <!-- 0.90 -->
+      <g style="fill:#ffffff;" transform="translate(7.2 191.689454)scale(0.1 -0.1)">
+       <use xlink:href="#DejaVuSans-48"></use>
+       <use x="63.623047" xlink:href="#DejaVuSans-46"></use>
+       <use x="95.410156" xlink:href="#DejaVuSans-57"></use>
+       <use x="159.033203" xlink:href="#DejaVuSans-48"></use>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_12">
+      <g>
+       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="36.465625" xlink:href="#mdb56b657dd" y="154.566273"></use>
+      </g>
+     </g>
+     <g id="text_12">
+      <!-- 0.95 -->
+      <g style="fill:#ffffff;" transform="translate(7.2 158.365492)scale(0.1 -0.1)">
+       <use xlink:href="#DejaVuSans-48"></use>
+       <use x="63.623047" xlink:href="#DejaVuSans-46"></use>
+       <use x="95.410156" xlink:href="#DejaVuSans-57"></use>
+       <use x="159.033203" xlink:href="#DejaVuSans-53"></use>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_13">
+      <g>
+       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="36.465625" xlink:href="#mdb56b657dd" y="121.242311"></use>
+      </g>
+     </g>
+     <g id="text_13">
+      <!-- 1.00 -->
+      <g style="fill:#ffffff;" transform="translate(7.2 125.041529)scale(0.1 -0.1)">
+       <use xlink:href="#DejaVuSans-49"></use>
+       <use x="63.623047" xlink:href="#DejaVuSans-46"></use>
+       <use x="95.410156" xlink:href="#DejaVuSans-48"></use>
+       <use x="159.033203" xlink:href="#DejaVuSans-48"></use>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_14">
+      <g>
+       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="36.465625" xlink:href="#mdb56b657dd" y="87.918349"></use>
+      </g>
+     </g>
+     <g id="text_14">
+      <!-- 1.05 -->
+      <g style="fill:#ffffff;" transform="translate(7.2 91.717567)scale(0.1 -0.1)">
+       <use xlink:href="#DejaVuSans-49"></use>
+       <use x="63.623047" xlink:href="#DejaVuSans-46"></use>
+       <use x="95.410156" xlink:href="#DejaVuSans-48"></use>
+       <use x="159.033203" xlink:href="#DejaVuSans-53"></use>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_6">
+     <g id="line2d_15">
+      <g>
+       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="36.465625" xlink:href="#mdb56b657dd" y="54.594386"></use>
+      </g>
+     </g>
+     <g id="text_15">
+      <!-- 1.10 -->
+      <g style="fill:#ffffff;" transform="translate(7.2 58.393605)scale(0.1 -0.1)">
+       <use xlink:href="#DejaVuSans-49"></use>
+       <use x="63.623047" xlink:href="#DejaVuSans-46"></use>
+       <use x="95.410156" xlink:href="#DejaVuSans-49"></use>
+       <use x="159.033203" xlink:href="#DejaVuSans-48"></use>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_7">
+     <g id="line2d_16">
+      <g>
+       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="36.465625" xlink:href="#mdb56b657dd" y="21.270424"></use>
+      </g>
+     </g>
+     <g id="text_16">
+      <!-- 1.15 -->
+      <g style="fill:#ffffff;" transform="translate(7.2 25.069643)scale(0.1 -0.1)">
+       <use xlink:href="#DejaVuSans-49"></use>
+       <use x="63.623047" xlink:href="#DejaVuSans-46"></use>
+       <use x="95.410156" xlink:href="#DejaVuSans-49"></use>
+       <use x="159.033203" xlink:href="#DejaVuSans-53"></use>
+      </g>
+     </g>
+    </g>
+   </g>
+   <g id="patch_3">
+    <path d="M 36.465625 224.64 
+L 36.465625 7.2 
+" style="fill:none;stroke:#ffffff;stroke-linecap:square;stroke-linejoin:miter;stroke-width:0.8;"></path>
+   </g>
+   <g id="patch_4">
+    <path d="M 371.265625 224.64 
+L 371.265625 7.2 
+" style="fill:none;stroke:#ffffff;stroke-linecap:square;stroke-linejoin:miter;stroke-width:0.8;"></path>
+   </g>
+   <g id="patch_5">
+    <path d="M 36.465625 224.64 
+L 371.265625 224.64 
+" style="fill:none;stroke:#ffffff;stroke-linecap:square;stroke-linejoin:miter;stroke-width:0.8;"></path>
+   </g>
+   <g id="patch_6">
+    <path d="M 36.465625 7.2 
+L 371.265625 7.2 
+" style="fill:none;stroke:#ffffff;stroke-linecap:square;stroke-linejoin:miter;stroke-width:0.8;"></path>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clippath id="p33cd4579e4">
+   <rect height="217.44" width="334.8" x="36.465625" y="7.2"></rect>
+  </clippath>
+ </defs>
+</svg>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Variational-Inference">
+<a class="anchor" href="#Variational-Inference" aria-hidden="true"><span class="octicon octicon-link"></span></a>Variational Inference<a class="anchor-link" href="#Variational-Inference"> </a>
+</h1>
+<h1 id="Stochastic-Gradient-Markov-Chain-Monte-Carlo-(SG-MCMC)">
+<a class="anchor" href="#Stochastic-Gradient-Markov-Chain-Monte-Carlo-(SG-MCMC)" aria-hidden="true"><span class="octicon octicon-link"></span></a>Stochastic Gradient Markov Chain Monte Carlo (SG-MCMC)<a class="anchor-link" href="#Stochastic-Gradient-Markov-Chain-Monte-Carlo-(SG-MCMC)"> </a>
+</h1>
+</div>
+</div>
+</div>
+</div>
+
+
+
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="simeneide/blog"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/blog/bayesian%20neural%20net/2020/11/06/bayesian-deep-learning.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/blog/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/blog/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/blog/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>An easy to use blogging platform with support for Jupyter Notebooks.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/fastai" title="fastai"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/fastdotai" title="fastdotai"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
