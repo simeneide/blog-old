@@ -4,8 +4,19 @@ title: About Me
 permalink: /about/
 ---
 
-This website is powered by **[fastpages](https://github.com/fastai/fastpages)** [^1].
+# Biography
 
+Mathematician with hacking skills at the Norwegian marketplace FINN.no and at the machine learning startup Arctic Datalab. 
+Also doing a phd in statistics at University of Oslo. 
+Working on personalization systems and other machine learning tasks using behaviour, image and text. 
+Background from mathematics, statistics and financial modeling.
 
-
-[^1]:a blogging platform that natively supports Jupyter notebooks in addition to other formats.
+# List your academic interests.
+[interests]
+  interests = [
+    "Deep Recommenders",
+    "Decision Making",
+    "Bandits and RL",
+    "Bayesian models",
+  ]
++++
