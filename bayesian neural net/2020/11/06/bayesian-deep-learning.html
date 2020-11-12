@@ -178,6 +178,7 @@ window.onload = wrap_img;
 <h1 id="Why-bayesian-neural-nets">
 <a class="anchor" href="#Why-bayesian-neural-nets" aria-hidden="true"><span class="octicon octicon-link"></span></a>Why bayesian neural nets<a class="anchor-link" href="#Why-bayesian-neural-nets"> </a>
 </h1>
+<p><img src="https://imgs.xkcd.com/comics/frequentists_vs_bayesians.png" alt=""></p>
 <ul>
 <li>Robustness: Bayesian neural nets should, at least in theory and there has been some evidence for it, be more robust against out of sample data.</li>
 <li>Bayesian framework can incorporate prior information into the models.</li>
@@ -188,11 +189,9 @@ window.onload = wrap_img;
 </h2>
 <p>This post have used the following references extensively:</p>
 <ul>
-<li>Nemeth, C., &amp; Fearnhead, P. (2019). Stochastic gradient Markov chain Monte Carlo, 1–31. Retrieved from <a href="http://arxiv.org/abs/1907.06986">http://arxiv.org/abs/1907.06986</a>
-</li>
-<li>Gelman, A., Carlin, J. B., Stern, H. S., Dunson, D. B., Vehtari, A., &amp; Rubon, D. B. (n.d.). Bayesian Data Analysis Third Edition. Retrieved from <a href="https://the-eye.eu/public/Books/qt.vidyagam.es/library/Monitoring">https://the-eye.eu/public/Books/qt.vidyagam.es/library/Monitoring</a> and Analysis/Bayesian Data Analysis%2C Third Edition/Bayesian Data Analysis%2C Third Edition - Andrew Gelman %26 John B. Carlin %26 Hal S. Stern %26 David B. Dunson %26 Aki Vehtari %26 Dona</li>
-<li>Zhang, R., Li, C., Zhang, J., Chen, C., &amp; Wilson, A. G. (2019). Cyclical Stochastic Gradient MCMC for Bayesian Deep Learning, (2017), 1–28. Retrieved from <a href="http://arxiv.org/abs/1902.03932">http://arxiv.org/abs/1902.03932</a>
-</li>
+<li>Nemeth, C., &amp; Fearnhead, P. (2019). Stochastic gradient Markov chain Monte Carlo, 1–31. </li>
+<li>Gelman, A., Carlin, J. B., Stern, H. S., Dunson, D. B., Vehtari, A., &amp; Rubon, D. B. (n.d.). Bayesian Data Analysis Third Edition. </li>
+<li>Zhang, R., Li, C., Zhang, J., Chen, C., &amp; Wilson, A. G. (2019). Cyclical Stochastic Gradient MCMC for Bayesian Deep Learning, (2017)</li>
 </ul>
 
 </div>
@@ -205,7 +204,7 @@ window.onload = wrap_img;
 <a class="anchor" href="#General-setup" aria-hidden="true"><span class="octicon octicon-link"></span></a>General setup<a class="anchor-link" href="#General-setup"> </a>
 </h1>
 <p>We have a dataset $D = [\{x_i, y_i \}, i=1,...,n]$, and have defined a likelihood function $P(D|\theta)$ where $\theta \in R^d$ are some parameters defined in the model. We have also already defined a prior for these parameters $P(\theta)$. The posterior distribution can then be written as</p>
-\begin{equation} \tag{posterior}
+\begin{equation}
 P(\theta | D) = \frac{P(D|\theta) * P(\theta)}{P(D)} \propto P(D|\theta) * P(\theta)
 \end{equation}<p>Finding $P(D)$ is impossible for all but the simplest cases, and as we are interested in complicated likelihood functions such as neural networks, it will clearly not work for us. 
 Therefore, we only have the posterior distribution up to a constant.
@@ -1529,7 +1528,7 @@ L 368.0875 10.38827
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">OptimizerSGLD</span><span class="p">(</span><span class="n">Optimizer</span><span class="p">):</span>
     <span class="sd">""" Optimizer that allows for cyclic learning rate, stochastic mcmc and normal sgd."""</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">net</span><span class="p">,</span> <span class="n">lr_max</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span> <span class="n">lr_min</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">,</span> <span class="n">max_step</span> <span class="o">=</span> <span class="mf">10e3</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">net</span><span class="p">,</span> <span class="n">lr_max</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span> <span class="n">lr_min</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">,</span> <span class="n">max_step</span> <span class="o">=</span> <span class="mf">10e3</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">noise_part2</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">OptimizerSGLD</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="p">{})</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">net</span> <span class="o">=</span> <span class="n">net</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">lr_max</span> <span class="o">=</span> <span class="n">lr_max</span>
@@ -1538,6 +1537,7 @@ L 368.0875 10.38827
         <span class="bp">self</span><span class="o">.</span><span class="n">max_step</span> <span class="o">=</span> <span class="n">max_step</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">it</span><span class="o">=</span><span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">noise</span> <span class="o">=</span> <span class="n">noise</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">noise_part2</span> <span class="o">=</span> <span class="n">noise_part2</span> <span class="c1"># parameter overwriting noise to only have it for sampling stage</span>
     
     <span class="nd">@torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">()</span>
     <span class="k">def</span> <span class="nf">step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_data</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
@@ -1546,6 +1546,12 @@ L 368.0875 10.38827
         <span class="n">ratio</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">it</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_step</span><span class="p">)</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">max_step</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">lr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lr_max</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">ratio</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">lr_min</span><span class="o">*</span><span class="n">ratio</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">net</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">"learning_rate"</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lr</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">noise_part2</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">ratio</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">noise</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">noise</span> <span class="o">=</span> <span class="kc">False</span>
 
         <span class="c1"># Update parameters:</span>
         <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">par</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">net</span><span class="o">.</span><span class="n">named_parameters</span><span class="p">():</span>
@@ -1571,7 +1577,7 @@ L 368.0875 10.38827
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">LitMNIST</span><span class="p">(</span><span class="n">LightningModule</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lr_max</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span> <span class="n">lr_min</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">,</span> <span class="n">max_step</span> <span class="o">=</span> <span class="mf">10e3</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lr_max</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span> <span class="n">lr_min</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">,</span> <span class="n">max_step</span> <span class="o">=</span> <span class="mf">10e3</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">noise_part2</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">layer_1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
@@ -1585,7 +1591,7 @@ L 368.0875 10.38827
         <span class="bp">self</span><span class="o">.</span><span class="n">val_acc</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">Accuracy</span><span class="p">()</span>
 
         <span class="c1"># Initialize optimizer</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">opt</span> <span class="o">=</span> <span class="n">OptimizerSGLD</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lr_max</span><span class="p">,</span> <span class="n">lr_min</span><span class="p">,</span> <span class="n">max_step</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="n">noise</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">opt</span> <span class="o">=</span> <span class="n">OptimizerSGLD</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lr_max</span><span class="p">,</span> <span class="n">lr_min</span><span class="p">,</span> <span class="n">max_step</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="n">noise</span><span class="p">,</span> <span class="n">noise_part2</span><span class="o">=</span><span class="n">noise_part2</span><span class="p">)</span>
 
 
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
@@ -1656,6 +1662,11 @@ L 368.0875 10.38827
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">configs</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'cSGMCMC-temp'</span> <span class="p">:</span> <span class="p">{</span>
+        <span class="s1">'max_step'</span> <span class="p">:</span> <span class="mf">30e3</span><span class="p">,</span>
+        <span class="s1">'noise'</span> <span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="s1">'noise_part2'</span> <span class="p">:</span> <span class="kc">True</span>
+    <span class="p">},</span>
     <span class="s1">'cSGMCMC'</span> <span class="p">:</span> <span class="p">{</span>
         <span class="s1">'max_step'</span> <span class="p">:</span> <span class="mf">30e3</span><span class="p">,</span>
         <span class="s1">'noise'</span> <span class="p">:</span> <span class="kc">True</span>
@@ -1669,23 +1680,8 @@ L 368.0875 10.38827
         <span class="s1">'noise'</span> <span class="p">:</span> <span class="kc">False</span>
     <span class="p">},</span>
 <span class="p">}</span>
-</pre></div>
 
-    </div>
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">config</span> <span class="ow">in</span> <span class="n">configs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">config</span> <span class="ow">in</span> <span class="n">configs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
     <span class="n">model</span> <span class="o">=</span> <span class="n">LitMNIST</span><span class="p">(</span><span class="n">lr_max</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span> <span class="n">lr_min</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">,</span> <span class="o">**</span><span class="n">config</span><span class="p">)</span>
     <span class="n">logger</span> <span class="o">=</span> <span class="n">TensorBoardLogger</span><span class="p">(</span><span class="s2">"logs"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
     <span class="n">trainer</span> <span class="o">=</span> <span class="n">Trainer</span><span class="p">(</span><span class="n">gpus</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">progress_bar_refresh_rate</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">logger</span><span class="o">=</span><span class="n">logger</span><span class="p">,</span> <span class="n">max_epochs</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
