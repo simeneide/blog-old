@@ -93,7 +93,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      20 min read
+      21 min read
     
 </span></p>
 
@@ -161,6 +161,7 @@ window.onload = wrap_img;
 <li class="toc-entry toc-h1"><a href="#Scaling-sg-mcmc-up-to-neural-networks">Scaling sg-mcmc up to neural networks </a>
 <ul>
 <li class="toc-entry toc-h2"><a href="#Comparing-cSGMCMC-vs-SGLD-vs-SGD">Comparing cSGMCMC vs SGLD vs SGD </a></li>
+<li class="toc-entry toc-h2"><a href="#Results">Results </a></li>
 </ul>
 </li>
 </ul><!--
@@ -1753,6 +1754,30 @@ Finished training SGD
 </div>
     
 
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Results">
+<a class="anchor" href="#Results" aria-hidden="true"><span class="octicon octicon-link"></span></a>Results<a class="anchor-link" href="#Results"> </a>
+</h2>
+<p><img src="/blog/images/copied_from_nb/assets-bayes-nn/legend.png" alt="" title="legend"></p>
+<p><img src="/blog/images/copied_from_nb/assets-bayes-nn/learning-rate.png" alt="" title="Learning rate over iterations"></p>
+<p><img src="/blog/images/copied_from_nb/assets-bayes-nn/acc+loss.png" alt="" title="Loss and accuracy over iterations"></p>
+<p>Illustration of how to implement the algorithms, unfortunately not sufficient time to evaluate the different optimization algorithms properly. Some findings:</p>
+<ul>
+<li>We would in this case expect that SGD performs better than the alternatives as SGD is finding the maximum aposterior $\theta_{MAX} = argmax_{\theta} P(D|\theta)$, and the others are find a posterior distribution "around" that.<ul>
+<li>Seems confirmed by comparing SGD and SGLD.</li>
+</ul>
+</li>
+<li>We see that cSGLD is oscilating, each of the optimas should, according to the cSGLD paper be different modes of the distribution. If we were to estimate the loss by ensembling the whole distribution, the test loss should be lower than for SGD and SGLD.<ul>
+<li>We did not have time for this.</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
 </div>
 
 
