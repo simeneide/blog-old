@@ -1,6 +1,6 @@
 ---
 title: "Presentation from Oslo Data Science Meetup"
-tags: [recsys]
+categories: [recsys]
 ---
 
 In February I talked about the recommendation models we have at FINN.no, and how we work to develop and test new models.
