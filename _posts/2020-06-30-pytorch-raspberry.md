@@ -1,10 +1,8 @@
-+++
-date = 2020-06-30
-title = "Installing Pytorch on a raspberry pi 4"
-active = true
-tags = ["foo"]
-+++
-
+---
+title: "Installing Pytorch on a raspberry pi 4"
+layout: post
+categories: [rpi4, pytorch]
+---
 # Update 15 sept 2020 
 I found [these wheel builds](https://mathinf.com/pytorch/arm64/) from [Thomas Viehmann](https://twitter.com/ThomasViehmann/status/1302944934333382656) that worked very well on a rpi4 64 bit running python 3.7. They are **pytorch 1.6.0** and avoids the original hacks.
 Only issue was that my camera stopped working, but manage to circumvent it by using a different driver (v4l-utils) and using opencv's VideoCapture() to get images. 

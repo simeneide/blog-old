@@ -1,10 +1,8 @@
-+++
-date = 2019-01-17
-title = "PILCO and Deep PILCO"
-active = true
-tags = ["foo"]
-+++
-
+---
+title: "PILCO and Deep PILCO"
+layout: post
+categories: [RL]
+---
 Papers: 
 - [Deisenroth, M. P., & Rasmussen, C. E. (2011). PILCO: A model-based and data-efficient approach to policy search. Proceedings of the 28th International Conference on Machine Learning, ICML 2011, 465–472.](https://www.researchgate.net/publication/221345233_PILCO_A_Model-Based_and_Data-Efficient_Approach_to_Policy_Search)
 - [Gal, Y., Mcallister, R. T., & Rasmussen, C. E. (2016). Improving PILCO with Bayesian Neural Network Dynamics Models. Data-Efficient Machine Learning Workshop, ICML, 1–7.](http://mlg.eng.cam.ac.uk/yarin/PDFs/DeepPILCO.pdf)
