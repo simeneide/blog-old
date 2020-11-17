@@ -13,7 +13,7 @@ This morning I found [colab-ssh](https://github.com/WassimBenzarti/colab-ssh). I
 And if you have a GPU runtime on google colab you get that as well, of course. 
 Combining this with a small google drive mounting, and I **get more or less my local working environment but with GPU acceleration**.
 
-![]({{ site.baseurl }}/assets_old/assets2020-09-14-12-29-52.png)
+![]({{ site.baseurl }}/assets_old/assets/2020-09-14-12-29-52.png)
 
 A quick step-by-step (see [colab-ssh](https://github.com/WassimBenzarti/colab-ssh) for updates if this doesnt work):
 1. Open a new google colab notebook.
@@ -51,13 +51,13 @@ Successfully running 2.tcp.ngrok.io:13254
 
 1. Go to your local VScode and select Remote-SSH: Open Configuration File, and paste the config above:
 
-![]({{ site.baseurl }}/assets_old/assets2020-09-14-12-36-15.png)
+![]({{ site.baseurl }}/assets_old/assets/2020-09-14-12-36-15.png)
 
-![]({{ site.baseurl }}/assets_old/assets2020-09-14-12-37-44.png)
+![]({{ site.baseurl }}/assets_old/assets/2020-09-14-12-37-44.png)
 
 6. Select Remote-SSH: Connect to Host and select the google colab ssh connection.
 
-![]({{ site.baseurl }}/assets_old/assets2020-09-14-12-38-18.png)
+![]({{ site.baseurl }}/assets_old/assets/2020-09-14-12-38-18.png)
 
 
 Voila! Up and running with gpu and your google drive attached. 

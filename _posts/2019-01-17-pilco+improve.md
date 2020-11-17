@@ -16,7 +16,7 @@ However, model based simulators suffers from their approximations to the real wo
 By introducing a probabilistic dynamics model, the PILCO algorithms tries to account for the fact that future trajectories are uncertain by introducing parameter uncertainty.
 The original PILCO paper does this by using Gaussian Processes, while the deep PILCO use a neural net with the "dropout trick" to approximate a bayesian neural net.
 
-![]({{ site.baseurl }}/assets_old/assets2020-01-17-10-23-16.png)
+![]({{ site.baseurl }}/assets_old/assets/2020-01-17-10-23-16.png)
 
 
 The framework assumes that the world model is of the form 
@@ -28,11 +28,11 @@ $u_t \in R^F$ is an action at time t, and f is some function of the real world t
 
 The objective is to find a policy $\pi(x) = u$ that minimize the expectation of a cost function $c(x_t)$ over all time steps:
 
-![]({{ site.baseurl }}/assets_old/assets2020-01-17-10-18-34.png)
+![]({{ site.baseurl }}/assets_old/assets/2020-01-17-10-18-34.png)
 
 The policy is found by iterating between learning the posterior of the world transition dynamics and simulating using the dynamics and optimizing the policy:
 
-![]({{ site.baseurl }}/assets_old/assets2020-01-17-10-24-06.png)
+![]({{ site.baseurl }}/assets_old/assets/2020-01-17-10-24-06.png)
 
 The original paper uses a gaussian process to model $f(x_t)$, which gives an analytical solution for the posterior.
 However, gaussian processes does not scale well for large datasets, and the Deep PILCO paper instead uses a neural net to estimate the same dynamics.
@@ -40,4 +40,4 @@ They approximate the posterior using variational inference and minimize the KL-d
 
 Both papers show that their algorithm is more data efficient than current state of the art reinforcement learning algorithms:
 
-![]({{ site.baseurl }}/assets_old/assets2020-01-17-10-33-54.png)
+![]({{ site.baseurl }}/assets_old/assets/2020-01-17-10-33-54.png)
