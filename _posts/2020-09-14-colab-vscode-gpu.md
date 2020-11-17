@@ -1,9 +1,8 @@
-+++
-date = 2020-09-14
-title = "Running Google Colab with VS code"
-active = true
-tags = ["foo"]
-+++
+---
+title: "Running Google Colab with VS code"
+layout: post
+categories: [vscode]
+---
 
 Running VScode and the python extension is great for development.
 I get clean python files *and* can run my code interactively.
