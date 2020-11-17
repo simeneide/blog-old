@@ -114,8 +114,8 @@
         ,"post10": {
             "title": "Presentation from Oslo Data Science Meetup",
             "content": "In February I talked about the recommendation models we have at FINN.no, and how we work to develop and test new models. It was exciting to be talking to so many people about technical stuff, but even more interesting to hear questions and comments you can take back to try out. . The full presentation can be downloaded here. . .",
-            "url": "https://simeneide.github.io/blog/2017/03/30/osloDataSciencePresentation.html",
-            "relUrl": "/2017/03/30/osloDataSciencePresentation.html",
+            "url": "https://simeneide.github.io/blog/recsys/2017/03/30/osloDataSciencePresentation.html",
+            "relUrl": "/recsys/2017/03/30/osloDataSciencePresentation.html",
             "date": " • Mar 30, 2017"
         }
         
