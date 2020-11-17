@@ -1,7 +1,7 @@
 ---
 title: "Deep Recommenders, Car Pricing, Self driving rc-car and other projects in 2017"
 toc: true
-categories = [recsys, carprice, autonomous cars]
+categories: [recsys, carprice, autonomous cars]
 ---
 
 I am not a fan of new years resolutions.
