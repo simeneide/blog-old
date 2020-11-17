@@ -57,11 +57,11 @@
   
     
         ,"post5": {
-            "title": "Bpmf Paper",
-            "content": "+++ date = 2018-10-06 title = “BPMF presentation” active = true tags = [“foo”] +++ . Slides from my presentation on “Bayesian Probabilistic Matrix Factorization using Markov Chain Monte Carlo” by Salakhutdinov and Mnih. Paper link. .",
-            "url": "https://simeneide.github.io/blog/2018/11/23/bpmf-paper.html",
-            "relUrl": "/2018/11/23/bpmf-paper.html",
-            "date": " • Nov 23, 2018"
+            "title": "BPMF presentation",
+            "content": "Slides from my presentation on “Bayesian Probabilistic Matrix Factorization using Markov Chain Monte Carlo” by Salakhutdinov and Mnih. Paper link. . .",
+            "url": "https://simeneide.github.io/blog/bayesian/matrix%20factorization/mcmc/2018/10/06/bpmf-paper.html",
+            "relUrl": "/bayesian/matrix%20factorization/mcmc/2018/10/06/bpmf-paper.html",
+            "date": " • Oct 6, 2018"
         }
         
     
