@@ -1,10 +1,3 @@
-<p>+++
-date = 2018-10-06
-title = “Takeaways Recsys 2018”
-active = true
-tags = [“foo”]
-+++</p>
-
 <p>For the first time Ive actually made a summary of all the papers and presentations I found noteworthy at a conference (allright, there were more, but this is a start).
 Below is my notes, with links etc.
 The purpose of the notes is mainly for myself to remember and revisit what I found interesting, but I see no reasons not to share to others.
@@ -20,11 +13,11 @@ Does not include my own <a href="">paper</a>.</p>
   <li>Also using self normalizing</li>
 </ul>
 
-<p><img alt="2018-10-06-recsys2018-0867f3e3.png" src="/assets/2018-10-06-recsys2018-0867f3e3.png" width="" height="" /></p>
+<p><img alt="2018-10-06-recsys2018-0867f3e3.png" src="/blog/assets_old/assets/2018-10-06-recsys2018-0867f3e3.png" width="" height="" /></p>
 
-<p><img alt="2018-10-06-recsys2018-7462e07d.png" src="/assets/2018-10-06-recsys2018-7462e07d.png" width="" height="" /></p>
+<p><img alt="2018-10-06-recsys2018-7462e07d.png" src="/blog/assets_old/assets/2018-10-06-recsys2018-7462e07d.png" width="" height="" /></p>
 
-<p><img alt="2018-10-06-recsys2018-2df58514.png" src="/assets/2018-10-06-recsys2018-2df58514.png" width="" height="" /></p>
+<p><img alt="2018-10-06-recsys2018-2df58514.png" src="/blog/assets_old/assets/2018-10-06-recsys2018-2df58514.png" width="" height="" /></p>
 
 <p>A very similar talk seem to be posted here:</p>
 
@@ -39,28 +32,28 @@ Does not include my own <a href="">paper</a>.</p>
   <li>they do not use td to train the model, rather the all the actual future rewards and discounts them to get training signal.</li>
 </ul>
 
-<p><img alt="2018-10-06-recsys2018-ae6ed169.png" src="/assets/2018-10-06-recsys2018-ae6ed169.png" width="" height="" /></p>
+<p><img alt="2018-10-06-recsys2018-ae6ed169.png" src="/blog/assets_old/assets/2018-10-06-recsys2018-ae6ed169.png" width="" height="" /></p>
 
-<p><img alt="2018-10-06-recsys2018-343021fe.png" src="/assets/2018-10-06-recsys2018-343021fe.png" width="" height="" /></p>
+<p><img alt="2018-10-06-recsys2018-343021fe.png" src="/blog/assets_old/assets/2018-10-06-recsys2018-343021fe.png" width="" height="" /></p>
 
 <ul>
   <li>
     <p>Corrects off-policy updates with importance sampling/IPS
-<img alt="2018-10-06-recsys2018-dd53f244.png" src="/assets/2018-10-06-recsys2018-dd53f244.png" width="" height="" /></p>
+<img alt="2018-10-06-recsys2018-dd53f244.png" src="/blog/assets_old/assets/2018-10-06-recsys2018-dd53f244.png" width="" height="" /></p>
   </li>
   <li>Exploration is costly, so they tune ut with an extra weight that they set.</li>
   <li>Recommends a set of top K items. Assume additive rewards:
-<img alt="2018-10-06-recsys2018-954be358.png" src="/assets/2018-10-06-recsys2018-954be358.png" width="" height="" /></li>
+<img alt="2018-10-06-recsys2018-954be358.png" src="/blog/assets_old/assets/2018-10-06-recsys2018-954be358.png" width="" height="" /></li>
 </ul>
 
-<p><img alt="2018-10-06-recsys2018-03485057.png" src="/assets/2018-10-06-recsys2018-03485057.png" width="" height="" /></p>
+<p><img alt="2018-10-06-recsys2018-03485057.png" src="/blog/assets_old/assets/2018-10-06-recsys2018-03485057.png" width="" height="" /></p>
 
 <h4 id="results">Results</h4>
 <ul>
   <li>Improved recs, also able to recommend more items into the tail.</li>
 </ul>
 
-<p><img alt="2018-10-06-recsys2018-b4d59684.png" src="/assets/2018-10-06-recsys2018-b4d59684.png" width="" height="" /></p>
+<p><img alt="2018-10-06-recsys2018-b4d59684.png" src="/blog/assets_old/assets/2018-10-06-recsys2018-b4d59684.png" width="" height="" /></p>
 
 <h3 id="recsys-competition-winners-two-stage-model-for-automatic-playlist-continuation-at-scale">Recsys-competition winners: Two-stage model for Automatic Playlist Continuation at Scale</h3>
 
@@ -84,7 +77,7 @@ Does not include my own <a href="">paper</a>.</p>
   <li>Step 2: xgboost classifier on these candidates</li>
 </ul>
 
-<p><img alt="2018-10-06-recsys2018-7267c259.png" src="/assets/2018-10-06-recsys2018-7267c259.png" width="" height="" /></p>
+<p><img alt="2018-10-06-recsys2018-7267c259.png" src="/blog/assets_old/assets/2018-10-06-recsys2018-7267c259.png" width="" height="" /></p>
 
 <h3 id="categorical-attributes-based-item-classification-for-recommender-systems-hiarchical-softmax-and-multi-loss">Categorical-attributes-based item classification for recommender systems: hiarchical softmax and multi loss</h3>
 
@@ -106,9 +99,9 @@ Does not include my own <a href="">paper</a>.</p>
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">&quot;Categorical-Attributes-Based Item Classification for Recommender Systems&quot; by <a href="https://twitter.com/QianZhao3?ref_src=twsrc%5Etfw">@QianZhao3</a> and Google folks lead by <a href="https://twitter.com/edchi?ref_src=twsrc%5Etfw">@edchi</a> - really interesting idea: categorical labels as *outputs* of multitask model you are optimizing when recommending items <a href="https://twitter.com/hashtag/RecSys2018?src=hash&amp;ref_src=twsrc%5Etfw">#RecSys2018</a> <a href="https://t.co/Bkljw0zVFf">https://t.co/Bkljw0zVFf</a> <a href="https://t.co/PavBxdtLaX">pic.twitter.com/PavBxdtLaX</a></p>&mdash; Xavier @ #recsys2018🎗🤖🏃 (@xamat) <a href="https://twitter.com/xamat/status/1048331032619970560?ref_src=twsrc%5Etfw">October 5, 2018</a></blockquote>
 <script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-<p><img alt="2018-10-06-recsys2018-0566e34a.png" src="/assets/2018-10-06-recsys2018-0566e34a.png" width="50%" height="" /></p>
+<p><img alt="2018-10-06-recsys2018-0566e34a.png" src="/blog/assets_old/assets/2018-10-06-recsys2018-0566e34a.png" width="50%" height="" /></p>
 
-<p><img alt="2018-10-06-recsys2018-0224ef5e.png" src="/assets/2018-10-06-recsys2018-0224ef5e.png" width="50%" height="" /></p>
+<p><img alt="2018-10-06-recsys2018-0224ef5e.png" src="/blog/assets_old/assets/2018-10-06-recsys2018-0224ef5e.png" width="50%" height="" /></p>
 
 <h3 id="keynote-2-dlrs---ray-jiang-deepmind-slate-recommendation-part-1">Keynote 2 dlrs - Ray Jiang, deepmind: slate recommendation (part 1)</h3>
 
@@ -120,9 +113,9 @@ Does not include my own <a href="">paper</a>.</p>
   <li>Tested on Recsys 2015: was the best slate dataset they could find</li>
 </ul>
 
-<p><img alt="2018-10-06-recsys2018-ce298161.png" src="/assets/2018-10-06-recsys2018-ce298161.png" width="" height="" /></p>
+<p><img alt="2018-10-06-recsys2018-ce298161.png" src="/blog/assets_old/assets/2018-10-06-recsys2018-ce298161.png" width="" height="" /></p>
 
-<p><img alt="2018-10-06-recsys2018-da23e997.png" src="/assets/2018-10-06-recsys2018-da23e997.png" width="" height="" /></p>
+<p><img alt="2018-10-06-recsys2018-da23e997.png" src="/blog/assets_old/assets/2018-10-06-recsys2018-da23e997.png" width="" height="" /></p>
 
 <p>https://arxiv.org/abs/1803.01682</p>
 
@@ -181,10 +174,10 @@ Does not include my own <a href="">paper</a>.</p>
   <li>con: bias/var depends on strength of IV, hard to scale</li>
 </ul>
 
-<p><img alt="2018-10-06-recsys2018-211b351e.png" src="/assets/2018-10-06-recsys2018-211b351e.png" width="" height="" />
-<img alt="2018-10-06-recsys2018-7ab75917.png" src="/assets/2018-10-06-recsys2018-7ab75917.png" width="" height="" /></p>
+<p><img alt="2018-10-06-recsys2018-211b351e.png" src="/blog/assets_old/assets/2018-10-06-recsys2018-211b351e.png" width="" height="" />
+<img alt="2018-10-06-recsys2018-7ab75917.png" src="/blog/assets_old/assets/2018-10-06-recsys2018-7ab75917.png" width="" height="" /></p>
 
-<p><img alt="2018-10-06-recsys2018-4d1e1674.png" src="/assets/2018-10-06-recsys2018-4d1e1674.png" width="" height="" /></p>
+<p><img alt="2018-10-06-recsys2018-4d1e1674.png" src="/blog/assets_old/assets/2018-10-06-recsys2018-4d1e1674.png" width="" height="" /></p>
 
 <h3 id="generation-meets-recommendation---generating-new-items-that-fit-most-users">Generation meets recommendation - “Generating new items that fit most users”</h3>
 <ul>
@@ -209,7 +202,7 @@ Does not include my own <a href="">paper</a>.</p>
   <li>Takeaway 2: MRR is one of the lesser robust offline metrics.</li>
 </ul>
 
-<p><img alt="2018-10-06-recsys2018-6ac93198.png" src="/assets/2018-10-06-recsys2018-6ac93198.png" width="" height="" /></p>
+<p><img alt="2018-10-06-recsys2018-6ac93198.png" src="/blog/assets_old/assets/2018-10-06-recsys2018-6ac93198.png" width="" height="" /></p>
 
 <p>Takeaway 2: mrr er ganske lite robust.</p>
 
@@ -238,7 +231,7 @@ Does not include my own <a href="">paper</a>.</p>
   <li>Unrelated to talk and recogym, but some notes me and Olav did on rec simulations during conf. Same ideas:</li>
 </ul>
 
-<p><img alt="2018-10-06-recsys2018-d17df3a5.png" src="/assets/2018-10-06-recsys2018-d17df3a5.png" width="" height="" /></p>
+<p><img alt="2018-10-06-recsys2018-d17df3a5.png" src="/blog/assets_old/assets/2018-10-06-recsys2018-d17df3a5.png" width="" height="" /></p>
 
 <h3 id="news-session-based-recommendations-using-dnn">News session-based recommendations using DNN</h3>
 
@@ -252,7 +245,7 @@ Does not include my own <a href="">paper</a>.</p>
   <li>Code: https://github.com/criteo-research/reco-gym</li>
 </ul>
 
-<p><img alt="2018-10-06-recsys2018-ba51b891.png" src="/assets/2018-10-06-recsys2018-ba51b891.png" width="" height="" /></p>
+<p><img alt="2018-10-06-recsys2018-ba51b891.png" src="/blog/assets_old/assets/2018-10-06-recsys2018-ba51b891.png" width="" height="" /></p>
 
 <h3 id="what-happens-if-users-only-share-last-n-days-of-data-exploring-recommendations-under-user-controlled-data-filtering">What happens if users only share last n days of data? (Exploring recommendations under user-controlled data filtering)</h3>
 

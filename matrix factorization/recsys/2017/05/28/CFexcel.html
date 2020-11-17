@@ -1,10 +1,3 @@
-<p>+++
-date = 2017-05-28
-title = “Collaborative Filtering Recommendations in Spreadsheets”
-active = true
-tags = [“foo”]
-+++</p>
-
 <p>Most people have a love-hate relationship to spreadsheets.
 The spreadsheet format is simple and intuitive, and doing calculations becomes really easy.
 However, they quickly become too complicated as well.</p>
@@ -25,7 +18,7 @@ The idea of collaborative filtering is to be able to find relevant items to reco
 <p>You start off getting your dataset.
 In our case it consist of four users that have clicked or not clicked on four different items:</p>
 
-<p><img src="/assets/cfExcel/dataset.png" alt="dataset" /></p>
+<p><img src="/blog/assets_old/assets/cfExcel/dataset.png" alt="dataset" /></p>
 
 <p>The goal of a collaborative filtering model is to predict this data.
 That is, if we give the model the user “Espen” and the item “Macbook Pro”,
@@ -34,7 +27,7 @@ it should be able to predict a number close to one.</p>
 <p>The model is parameterised by giving each user and each item two random numbers each.
 We call these numbers for “embeddings”:</p>
 
-<p><img src="/assets/cfExcel/embeddings.png" alt="embeddings" /></p>
+<p><img src="/blog/assets_old/assets/cfExcel/embeddings.png" alt="embeddings" /></p>
 
 <p>We say that our model predicts a click/no click on a pair of user and item by multiplying the embeddings.
 That is, we find the first embedding of Espen and multiplies it with the first embedding of the Macbook Pro.
@@ -47,7 +40,7 @@ However, we have not <em>trained</em> the model yet, so it is pretty dumb so far
 
 <p>The full excel sheet looks like this:</p>
 
-<p><img src="/assets/cfExcel/CF-untrained.png" alt="cf-untrained" /></p>
+<p><img src="/blog/assets_old/assets/cfExcel/CF-untrained.png" alt="cf-untrained" /></p>
 
 <p>We have seen column A to H already.
 Column I to L is just a copy of the embeddings from the users and items shown in the dataset.
@@ -65,7 +58,7 @@ If I change the sign of the first embedding of Espen to something positive I wil
 Also, if I change the sign of the second embedding of Kamilla I will also decrease the error.
 Now it looks like this:</p>
 
-<p><img src="/assets/cfExcel/cf-manual-optimzation.png" alt="cf-manual-optimzation" /></p>
+<p><img src="/blog/assets_old/assets/cfExcel/cf-manual-optimzation.png" alt="cf-manual-optimzation" /></p>
 
 <p>We have managed to decrease the average error from 0.71 to 0.64!
 Now, its pretty hard to do this by hand,
@@ -73,18 +66,18 @@ so to help me I installed a little Add-on called “solver” in google spreadsh
 Basically what it does it to minimize cell N13 (which is where we have calculated our Average Error)
 by changing cells C3:D10 (that is where we have put all our embeddings (random numbers)).</p>
 
-<p><img src="/assets/cfExcel/solver.png" alt="solver" /></p>
+<p><img src="/blog/assets_old/assets/cfExcel/solver.png" alt="solver" /></p>
 
 <p>After pressing “Solve” the thing changes the embeddings and comes up with an error of 0.49!
 You can see it came up with better numbers so that our predictions (column M) are closer to the actual truth (column H).</p>
 
-<p><img src="/assets/cfExcel/solver-step.png" alt="solver-step" /></p>
+<p><img src="/blog/assets_old/assets/cfExcel/solver-step.png" alt="solver-step" /></p>
 
 <p>Doing this another time I actually get an average error of zero.
 Our model is perfectly predicting all the observations we have in the dataset,
 and we are done!</p>
 
-<p><img src="/assets/cfExcel/cf-solved.png" alt="solver-solved" /></p>
+<p><img src="/blog/assets_old/assets/cfExcel/cf-solved.png" alt="solver-solved" /></p>
 
 <p>The “real” collaborative filtering algorithms that operate in the wild is very similar to this one.
 They use more data and use more than two embeddings per user.
