@@ -4,19 +4,19 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>Running Google Colab with VS code | Simen Eide</title>
+<title>Installing Pytorch on a raspberry pi 4 | Simen Eide</title>
 <meta name="generator" content="Jekyll v4.1.1" />
-<meta property="og:title" content="Running Google Colab with VS code" />
+<meta property="og:title" content="Installing Pytorch on a raspberry pi 4" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Running VScode and the python extension is great for development. I get clean python files and can run my code interactively. It is the same setup we have at work and I then remotely connect to a server with more cpu and GPU. However, for my side gigs I havent really figured out a workflow, until now." />
-<meta property="og:description" content="Running VScode and the python extension is great for development. I get clean python files and can run my code interactively. It is the same setup we have at work and I then remotely connect to a server with more cpu and GPU. However, for my side gigs I havent really figured out a workflow, until now." />
-<link rel="canonical" href="https://simeneide.github.io/blog/vscode/2020/09/14/colab-vscode-gpu.html" />
-<meta property="og:url" content="https://simeneide.github.io/blog/vscode/2020/09/14/colab-vscode-gpu.html" />
+<meta name="description" content="Update 15 sept 2020 I found these wheel builds from Thomas Viehmann that worked very well on a rpi4 64 bit running python 3.7. They are pytorch 1.6.0 and avoids the original hacks. Only issue was that my camera stopped working, but manage to circumvent it by using a different driver (v4l-utils) and using opencv’s VideoCapture() to get images. Got it running in a docker image with the following (removed some parts that I dont think is necessary):" />
+<meta property="og:description" content="Update 15 sept 2020 I found these wheel builds from Thomas Viehmann that worked very well on a rpi4 64 bit running python 3.7. They are pytorch 1.6.0 and avoids the original hacks. Only issue was that my camera stopped working, but manage to circumvent it by using a different driver (v4l-utils) and using opencv’s VideoCapture() to get images. Got it running in a docker image with the following (removed some parts that I dont think is necessary):" />
+<link rel="canonical" href="https://simeneide.github.io/blog/rpi4/pytorch/2020/06/30/pytorch-raspberry.html" />
+<meta property="og:url" content="https://simeneide.github.io/blog/rpi4/pytorch/2020/06/30/pytorch-raspberry.html" />
 <meta property="og:site_name" content="Simen Eide" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2020-09-14T00:00:00-05:00" />
+<meta property="article:published_time" content="2020-06-30T00:00:00-05:00" />
 <script type="application/ld+json">
-{"url":"https://simeneide.github.io/blog/vscode/2020/09/14/colab-vscode-gpu.html","headline":"Running Google Colab with VS code","dateModified":"2020-09-14T00:00:00-05:00","datePublished":"2020-09-14T00:00:00-05:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://simeneide.github.io/blog/vscode/2020/09/14/colab-vscode-gpu.html"},"description":"Running VScode and the python extension is great for development. I get clean python files and can run my code interactively. It is the same setup we have at work and I then remotely connect to a server with more cpu and GPU. However, for my side gigs I havent really figured out a workflow, until now.","@context":"https://schema.org"}</script>
+{"url":"https://simeneide.github.io/blog/rpi4/pytorch/2020/06/30/pytorch-raspberry.html","headline":"Installing Pytorch on a raspberry pi 4","dateModified":"2020-06-30T00:00:00-05:00","datePublished":"2020-06-30T00:00:00-05:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://simeneide.github.io/blog/rpi4/pytorch/2020/06/30/pytorch-raspberry.html"},"description":"Update 15 sept 2020 I found these wheel builds from Thomas Viehmann that worked very well on a rpi4 64 bit running python 3.7. They are pytorch 1.6.0 and avoids the original hacks. Only issue was that my camera stopped working, but manage to circumvent it by using a different driver (v4l-utils) and using opencv’s VideoCapture() to get images. Got it running in a docker image with the following (removed some parts that I dont think is necessary):","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://simeneide.github.io/blog/feed.xml" title="Simen Eide" /><link rel="shortcut icon" type="image/x-icon" href="/blog/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" /><script src="https://hypothes.is/embed.js" async></script>
@@ -87,8 +87,8 @@ window.onload = wrap_img;
         <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">Running Google Colab with VS code</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-09-14T00:00:00-05:00" itemprop="datePublished">
-        Sep 14, 2020
+    <h1 class="post-title p-name" itemprop="name headline">Installing Pytorch on a raspberry pi 4</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-06-30T00:00:00-05:00" itemprop="datePublished">
+        Jun 30, 2020
       </time>
        • <span class="read-time" title="Estimated read time">
     
@@ -100,7 +100,10 @@ window.onload = wrap_img;
     
       <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
       
-        <a class="category-tags-link" href="/blog/categories/#vscode">vscode</a>
+        <a class="category-tags-link" href="/blog/categories/#rpi4">rpi4</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/blog/categories/#pytorch">pytorch</a>
         
       
       </p>
@@ -109,74 +112,60 @@ window.onload = wrap_img;
     </header>
 
   <div class="post-content e-content" itemprop="articleBody">
-    <p>Running VScode and the python extension is great for development.
-I get clean python files <em>and</em> can run my code interactively.
-It is the same setup we have at work and I then remotely connect to a server with more cpu and GPU.
-However, for my side gigs I havent really figured out a workflow, until now.</p>
+    <h1 id="update-15-sept-2020">Update 15 sept 2020</h1>
+<p>I found <a href="https://mathinf.com/pytorch/arm64/">these wheel builds</a> from <a href="https://twitter.com/ThomasViehmann/status/1302944934333382656">Thomas Viehmann</a> that worked very well on a rpi4 64 bit running python 3.7. They are <strong>pytorch 1.6.0</strong> and avoids the original hacks.
+Only issue was that my camera stopped working, but manage to circumvent it by using a different driver (v4l-utils) and using opencv’s VideoCapture() to get images. 
+Got it running in a docker image with the following (removed some parts that I dont think is necessary):</p>
 
-<p>This morning I found <a href="https://github.com/WassimBenzarti/colab-ssh">colab-ssh</a>. It enables you to <strong>remotely connect your google colab instance to your local VScode</strong>! 
-And if you have a GPU runtime on google colab you get that as well, of course. 
-Combining this with a small google drive mounting, and I <strong>get more or less my local working environment but with GPU acceleration</strong>.</p>
+<p>(the balena docker image is a fairly stripped down ubuntu image)</p>
 
-<p><img src="/blog/assets_old/2020-09-14-12-29-52.png" alt="" /></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>FROM balenalib/raspberrypi4-64:latest
+# Defines our working directory in container
+WORKDIR /usr/src/app
+RUN sudo apt-get update
+RUN apt-get install -y gcc python3-dev v4l-utils python3-opencv python3-pip python3-setuptools libffi-dev libssl-dev
 
-<p>A quick step-by-step (see <a href="https://github.com/WassimBenzarti/colab-ssh">colab-ssh</a> for updates if this doesnt work):</p>
-<ol>
-  <li>Open a new google colab notebook.</li>
-  <li>In first cell: Mount your google drive using these commands (you need to follow link and authorize):
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from google.colab import drive
-drive.mount('/root/gdrive')
-</code></pre></div>    </div>
-  </li>
-  <li>Go to <a href="https://dashboard.ngrok.com/auth/your-authtoken">this site</a> and get an ngrok token.</li>
-  <li>Second cell: Add your token and create a password. Then add+run this:</li>
-</ol>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Install colab_ssh on google colab
-!pip install colab_ssh --upgrade
-ngrokToken = 'XXX'
-password = 'XXX'
-from colab_ssh import launch_ssh, init_git
-launch_ssh(ngrokToken,password)
-</code></pre></div></div>
-<ol>
-  <li>You’ll now see something like this:</li>
-</ol>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Collecting colab_ssh
-  Downloading https://files.pythonhosted.org/packages/a7/c5/eedfd8b374fead9d863cb7031d9dc97fed50003372922ba0efd85d9fe3e0/colab_ssh-0.2.63-py3-none-any.whl
-Installing collected packages: colab-ssh
-Successfully installed colab-ssh-0.2.63
-Successfully running 2.tcp.ngrok.io:13254
-[Optional] You can also connect with VSCode SSH Remote extension using this configuration:
-
-	Host google_colab_ssh
-		HostName 2.tcp.ngrok.io
-		User root
-		Port 12345
+# PYTORCH: 
+RUN wget https://mathinf.com/pytorch/arm64/torch-1.6.0a0+b31f58d-cp37-cp37m-linux_aarch64.whl
+RUN wget https://mathinf.com/pytorch/arm64/torchvision-0.7.0a0+78ed10c-cp37-cp37m-linux_aarch64.whl
+RUN sudo apt-get install -y python3-numpy python3-wheel python3-setuptools python3-future python3-yaml python3-six python3-requests python3-pip python3-pillow
+RUN pip3 install torch*.whl torchvision*.whl
 </code></pre></div></div>
 
-<ol>
-  <li>Go to your local VScode and select Remote-SSH: Open Configuration File, and paste the config above:</li>
-</ol>
+<h1 id="original-post">Original Post</h1>
+<p>Earlier this year I had to install pytorch on a raspiberry pi for my robotic lawn mower project (more on that later). However, the process was <em>very</em> painful, so Ill throw my notes here in case anyone else tries to do the same. Its not supposed to be bullet-proof, but may help with some pointers. Updates to this proceudre may be found <a href="https://github.com/simeneide/gardengoat#torch-and-torchvision">here</a>.</p>
 
-<p><img src="/blog/assets_old/2020-09-14-12-36-15.png" alt="" /></p>
+<p>Installed from wheel on these:
+https://github.com/nmilosev/pytorch-arm-builds</p>
 
-<p><img src="/blog/assets_old/2020-09-14-12-37-44.png" alt="" /></p>
+<p>But for rpi4 there was some errors, so I installed a wheel after reading this comment:
+https://github.com/nmilosev/pytorch-arm-builds/issues/4#issuecomment-527433112</p>
 
-<ol>
-  <li>Select Remote-SSH: Connect to Host and select the google colab ssh connection.</li>
-</ol>
+<p>Install from his wheel a bit longer down the thread, and rename those _C.<strong>.so and _d.</strong>.so files to _C.so and _d.so.</p>
 
-<p><img src="/blog/assets_old/2020-09-14-12-38-18.png" alt="" /></p>
+<p>Torchvision works, but Pillow 7.0.0 was too new, so downgraded to 6.1 after some random comments I found.</p>
 
-<p>Voila! Up and running with gpu and your google drive attached.</p>
+<h2 id="step-by-step">Step-by-step:</h2>
 
-<p>Unfortunately, the hostname and port changes each time, and you still have to manually open the google colab.</p>
+<h3 id="pip-install-pytorch-from-wheel">PIP install pytorch from wheel</h3>
+<p>Download wheel from here <code class="language-plaintext highlighter-rouge">https://github.com/nmilosev/pytorch-arm-builds</code> and run <code class="language-plaintext highlighter-rouge">sudo pip3 install torch-1.1.0-cp37-cp37m-linux_armv7l.whl</code></p>
 
-<p>Still, really great work by Wassim Benzarti.</p>
+<h3 id="rename-some-files">Rename some files</h3>
+<p>Then if you try to run <code class="language-plaintext highlighter-rouge">sudo python3 -c "import torch"</code> you get:</p>
 
-  </div><a class="u-url" href="/blog/vscode/2020/09/14/colab-vscode-gpu.html" hidden></a>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Traceback (most recent call last):
+  File "&lt;string&gt;", line 1, in &lt;module&gt;
+  File "/usr/local/lib/python3.7/dist-packages/torch/__init__.py", line 79, in &lt;module&gt;
+    from torch._C import *
+ModuleNotFoundError: No module named 'torch._C'
+</code></pre></div></div>
+<p>Can be fixed by the following:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd /usr/local/lib/python3.7/dist-packages/torch
+sudo mv _C.cpython-37m-arm-linux-gnueabi.so _C.so
+sudo mv _dl.cpython-37m-arm-linux-gnueabi.so _dl.so
+</code></pre></div></div>
+
+  </div><a class="u-url" href="/blog/rpi4/pytorch/2020/06/30/pytorch-raspberry.html" hidden></a>
 </article>
       </div>
     </main><footer class="site-footer h-card">
