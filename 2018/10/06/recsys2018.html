@@ -1,0 +1,274 @@
+<p>+++
+date = 2018-10-06
+title = “Takeaways Recsys 2018”
+active = true
+tags = [“foo”]
++++</p>
+
+<p>For the first time Ive actually made a summary of all the papers and presentations I found noteworthy at a conference (allright, there were more, but this is a start).
+Below is my notes, with links etc.
+The purpose of the notes is mainly for myself to remember and revisit what I found interesting, but I see no reasons not to share to others.
+Does not include my own <a href="">paper</a>.</p>
+
+<h3 id="keynote-dlrs---joachims-deep-learning-with-logged-bandit-feedback">Keynote dlrs - Joachims: Deep learning with logged bandit feedback</h3>
+
+<ul>
+  <li>Paper: http://www.cs.cornell.edu/people/tj/publications/joachims_etal_18a.pdf</li>
+  <li>idea: utilize current policy to build a better contextual bandits to recommend.</li>
+  <li>using Inverse Propensity Scoring</li>
+  <li>Using Self-normalizing IPS estimator (SNIPS)</li>
+  <li>Also using self normalizing</li>
+</ul>
+
+<p><img alt="2018-10-06-recsys2018-0867f3e3.png" src="/assets/2018-10-06-recsys2018-0867f3e3.png" width="" height="" /></p>
+
+<p><img alt="2018-10-06-recsys2018-7462e07d.png" src="/assets/2018-10-06-recsys2018-7462e07d.png" width="" height="" /></p>
+
+<p><img alt="2018-10-06-recsys2018-2df58514.png" src="/assets/2018-10-06-recsys2018-2df58514.png" width="" height="" /></p>
+
+<p>A very similar talk seem to be posted here:</p>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/lzA5K4im2no" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen=""></iframe>
+
+<h3 id="youtube-minmin-chen-off-policy-correction-for-a-reinforce-rec-system">Youtube, Minmin Chen: Off-policy correction for a REINFORCE Rec system</h3>
+
+<ul>
+  <li>Invited talk on the evaluation workshop REVEAL</li>
+  <li>Youtube shared their work on how the models they used now works, focus on evaluation</li>
+  <li>Maximized recommendations based on expected future reward</li>
+  <li>they do not use td to train the model, rather the all the actual future rewards and discounts them to get training signal.</li>
+</ul>
+
+<p><img alt="2018-10-06-recsys2018-ae6ed169.png" src="/assets/2018-10-06-recsys2018-ae6ed169.png" width="" height="" /></p>
+
+<p><img alt="2018-10-06-recsys2018-343021fe.png" src="/assets/2018-10-06-recsys2018-343021fe.png" width="" height="" /></p>
+
+<ul>
+  <li>
+    <p>Corrects off-policy updates with importance sampling/IPS
+<img alt="2018-10-06-recsys2018-dd53f244.png" src="/assets/2018-10-06-recsys2018-dd53f244.png" width="" height="" /></p>
+  </li>
+  <li>Exploration is costly, so they tune ut with an extra weight that they set.</li>
+  <li>Recommends a set of top K items. Assume additive rewards:
+<img alt="2018-10-06-recsys2018-954be358.png" src="/assets/2018-10-06-recsys2018-954be358.png" width="" height="" /></li>
+</ul>
+
+<p><img alt="2018-10-06-recsys2018-03485057.png" src="/assets/2018-10-06-recsys2018-03485057.png" width="" height="" /></p>
+
+<h4 id="results">Results</h4>
+<ul>
+  <li>Improved recs, also able to recommend more items into the tail.</li>
+</ul>
+
+<p><img alt="2018-10-06-recsys2018-b4d59684.png" src="/assets/2018-10-06-recsys2018-b4d59684.png" width="" height="" /></p>
+
+<h3 id="recsys-competition-winners-two-stage-model-for-automatic-playlist-continuation-at-scale">Recsys-competition winners: Two-stage model for Automatic Playlist Continuation at Scale</h3>
+
+<ul>
+  <li>Challenge website: http://www.recsyschallenge.com/2018/</li>
+  <li>Winner paper: http://www.cs.toronto.edu/~mvolkovs/recsys2018_challenge.pdf</li>
+  <li>Task was to complete a user playlist at spotify.</li>
+  <li>A playlist may have be created over a long time.</li>
+  <li>Given the first items, predict the last ones.</li>
+</ul>
+
+<p>Approach:</p>
+
+<ul>
+  <li>step 1: Reduce candidate set of all items to 20k by using a temporal convolutional layer.
+    <ul>
+      <li>(lstm worked too, but was slower to train and iterate on).</li>
+      <li>The step 1 was really about maximizing recall.</li>
+    </ul>
+  </li>
+  <li>Step 2: xgboost classifier on these candidates</li>
+</ul>
+
+<p><img alt="2018-10-06-recsys2018-7267c259.png" src="/assets/2018-10-06-recsys2018-7267c259.png" width="" height="" /></p>
+
+<h3 id="categorical-attributes-based-item-classification-for-recommender-systems-hiarchical-softmax-and-multi-loss">Categorical-attributes-based item classification for recommender systems: hiarchical softmax and multi loss</h3>
+
+<ul>
+  <li>Paper: https://dl.acm.org/citation.cfm?id=3240367</li>
+  <li>Setting: Next item prediction with items within some category structure.</li>
+  <li>
+    <p>Using negative sampling during training</p>
+  </li>
+  <li>
+    <p>Does the recommender improve by predicting a hiarchical softmax instead of doing multi target prediction?</p>
+  </li>
+  <li>Result: Using hiarchical modeling is better than multi target. Testet with MAP@5 on recsys16 dataset and “large propertary dataset”.</li>
+  <li>Also helps with cold start</li>
+</ul>
+
+<p>Own comments: Unsure of the improvement is due to negative sampling or that you infer more structure in your data/model.</p>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">&quot;Categorical-Attributes-Based Item Classification for Recommender Systems&quot; by <a href="https://twitter.com/QianZhao3?ref_src=twsrc%5Etfw">@QianZhao3</a> and Google folks lead by <a href="https://twitter.com/edchi?ref_src=twsrc%5Etfw">@edchi</a> - really interesting idea: categorical labels as *outputs* of multitask model you are optimizing when recommending items <a href="https://twitter.com/hashtag/RecSys2018?src=hash&amp;ref_src=twsrc%5Etfw">#RecSys2018</a> <a href="https://t.co/Bkljw0zVFf">https://t.co/Bkljw0zVFf</a> <a href="https://t.co/PavBxdtLaX">pic.twitter.com/PavBxdtLaX</a></p>&mdash; Xavier @ #recsys2018🎗🤖🏃 (@xamat) <a href="https://twitter.com/xamat/status/1048331032619970560?ref_src=twsrc%5Etfw">October 5, 2018</a></blockquote>
+<script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p><img alt="2018-10-06-recsys2018-0566e34a.png" src="/assets/2018-10-06-recsys2018-0566e34a.png" width="50%" height="" /></p>
+
+<p><img alt="2018-10-06-recsys2018-0224ef5e.png" src="/assets/2018-10-06-recsys2018-0224ef5e.png" width="50%" height="" /></p>
+
+<h3 id="keynote-2-dlrs---ray-jiang-deepmind-slate-recommendation-part-1">Keynote 2 dlrs - Ray Jiang, deepmind: slate recommendation (part 1)</h3>
+
+<ul>
+  <li>Relevant paper (seems unpublished): https://arxiv.org/pdf/1803.01682.pdf</li>
+  <li>predict a full feed instead of single items</li>
+  <li>use a VAE to do this,</li>
+  <li>“Works really well”.</li>
+  <li>Tested on Recsys 2015: was the best slate dataset they could find</li>
+</ul>
+
+<p><img alt="2018-10-06-recsys2018-ce298161.png" src="/assets/2018-10-06-recsys2018-ce298161.png" width="" height="" /></p>
+
+<p><img alt="2018-10-06-recsys2018-da23e997.png" src="/assets/2018-10-06-recsys2018-da23e997.png" width="" height="" /></p>
+
+<p>https://arxiv.org/abs/1803.01682</p>
+
+<h3 id="calibrated-recommendations">Calibrated Recommendations</h3>
+
+<ul>
+  <li>Paper: https://dl.acm.org/citation.cfm?id=3240372</li>
+  <li>If you have seen 70% drama and 30% horror, optimizing a recommender on precision, the best solution is to give you 100% drama and get 70% precision.</li>
+  <li>The paper suggests to calibrate the recommendations to be more representative.</li>
+  <li>Done by regularizing the recommendations with the KL divergence of categories (genres in this case)</li>
+  <li>Done as a post processing step.</li>
+  <li>Result: Can rerank top recommendations to a much more representative distribution without losing accuracy.</li>
+</ul>
+
+<p>https://dl.acm.org/citation.cfm?id=3240372</p>
+
+<h3 id="explore-exploit-and-explain-personalizing-explainable-recommendations-with-bandits">Explore, Exploit, and Explain: Personalizing Explainable Recommendations with Bandits</h3>
+
+<ul>
+  <li>Paper: https://dl.acm.org/citation.cfm?id=3240354</li>
+  <li>Feed-bandit that uses a factorization machine to predict and explain recommendations</li>
+  <li>context: Home page of spotify account. Different shelves of recommendations, each with an explanation (“because you recently listened to..”)</li>
+</ul>
+
+<h3 id="invited-talk-netflix-correlation--causation">Invited talk Netflix: Correlation &amp; Causation</h3>
+<ul>
+  <li>Yves Raimond, AI director Netflix</li>
+  <li>Netflix’s approach: personalize everything</li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>Made some thoughts about the do operator P(Y</td>
+          <td>do(X))</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>Maybe better for recs to focus on P(click</td>
+          <td>do(X)) - P(click</td>
+          <td>not do X)</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>IPS:</li>
+  <li>pro: simple, model-agnostic</li>
+  <li>con: only unbiased if no unobserved cofounders, high variance</li>
+  <li>Alternative til IPS: Instrumental Variable</li>
+  <li>used in econometrics</li>
+  <li>pro: robust to unobserved cofounders</li>
+  <li>con: bias/var depends on strength of IV, hard to scale</li>
+</ul>
+
+<p><img alt="2018-10-06-recsys2018-211b351e.png" src="/assets/2018-10-06-recsys2018-211b351e.png" width="" height="" />
+<img alt="2018-10-06-recsys2018-7ab75917.png" src="/assets/2018-10-06-recsys2018-7ab75917.png" width="" height="" /></p>
+
+<p><img alt="2018-10-06-recsys2018-4d1e1674.png" src="/assets/2018-10-06-recsys2018-4d1e1674.png" width="" height="" /></p>
+
+<h3 id="generation-meets-recommendation---generating-new-items-that-fit-most-users">Generation meets recommendation - “Generating new items that fit most users”</h3>
+<ul>
+  <li>Paper: https://arxiv.org/abs/1808.01199</li>
+</ul>
+
+<blockquote>
+  <ul>
+    <li>“Consider a movie studio aiming to produce a set of new movies for summer release: What types of movies it should produce? Who would the movies appeal to?”</li>
+    <li>“Specifically, we leverage the latent space obtained by training a deep generative model—the Variational Autoencoder (VAE)—via a loss function that incorporates both rating performance and item reconstruction terms.”</li>
+    <li>“We then apply a greedy search algorithm that utilizes this learned latent space to jointly obtain K plausible new items, and user groups that would find the items appealing.”</li>
+  </ul>
+</blockquote>
+
+<h3 id="on-the-robustness-and-discriminative-power-of-information-retrieval-metrics-for-top-n-recommendation">On the robustness and discriminative power of information retrieval metrics for top-N recommendation</h3>
+<ul>
+  <li>Paper: https://dl.acm.org/authorize.cfm?key=N668684</li>
+  <li>
+    <p>An evaluation of robustness of many offline metrics at different ranking level. E.g. MRR@5, Recall@10, MAP@100, …</p>
+  </li>
+  <li>Takeaway 1: Use a high cutoff (e.g. 100 instead of 10) when doing offline evaluations, like MRR. The metric is more robust, and highly correlated to the MRR@10 values</li>
+  <li>Takeaway 2: MRR is one of the lesser robust offline metrics.</li>
+</ul>
+
+<p><img alt="2018-10-06-recsys2018-6ac93198.png" src="/assets/2018-10-06-recsys2018-6ac93198.png" width="" height="" /></p>
+
+<p>Takeaway 2: mrr er ganske lite robust.</p>
+
+<h3 id="unbiased-offline-recommender-evaluation-for-missing-not-at-random-implicit-feedback">Unbiased offline recommender evaluation for missing-not-at-random implicit feedback</h3>
+
+<blockquote>
+  <p>Implicit-feedback Recommenders (ImplicitRec) leverage positive only user-item interactions, such as clicks, to learn personalized user preferences. Recommenders are often evaluated and compared offline using datasets collected from online platforms. These platforms are subject to popularity bias (i.e., popular items are more likely to be presented and interacted with), and therefore logged ground truth data are Missing-Not-At-Random (MNAR).</p>
+</blockquote>
+
+<ul>
+  <li>“Average over all” estimators are biased in Implicit rec datasets</li>
+  <li>Use IPS to evaluate policies.</li>
+  <li>reduce bias with 30% in a yahoo! music datset.</li>
+  <li>Paper: https://dl.acm.org/citation.cfm?id=3240355</li>
+</ul>
+
+<h3 id="recogym">RecoGym</h3>
+
+<ul>
+  <li>Simulation environment where you can evaluate your recommender agent</li>
+  <li>Follows the same style as openAI gym: env.step(action)</li>
+  <li>When we tried it a bit the day before, the users seemed to click on the same items over and over again, probably some tuning that needs to be done there?</li>
+  <li>
+    <p>This is sort of an alternative approach to offline evaluation. Simulators are limited by their generating model, but can we still use it to test algorithms for convergence etc?</p>
+  </li>
+  <li>Unrelated to talk and recogym, but some notes me and Olav did on rec simulations during conf. Same ideas:</li>
+</ul>
+
+<p><img alt="2018-10-06-recsys2018-d17df3a5.png" src="/assets/2018-10-06-recsys2018-d17df3a5.png" width="" height="" /></p>
+
+<h3 id="news-session-based-recommendations-using-dnn">News session-based recommendations using DNN</h3>
+
+<ul>
+  <li>A recommendation algorithm to recommend news.</li>
+  <li>Freshness and coldstart big problems.</li>
+  <li>Separate item representation that uses a lot of content, independent of users</li>
+  <li>Unfortunately not tested in prod (authors from large news corp.)</li>
+  <li>Tested on offline data: Beats everything, incl gru4rec ++</li>
+  <li>Paper: https://arxiv.org/abs/1808.00720</li>
+  <li>Code: https://github.com/criteo-research/reco-gym</li>
+</ul>
+
+<p><img alt="2018-10-06-recsys2018-ba51b891.png" src="/assets/2018-10-06-recsys2018-ba51b891.png" width="" height="" /></p>
+
+<h3 id="what-happens-if-users-only-share-last-n-days-of-data-exploring-recommendations-under-user-controlled-data-filtering">What happens if users only share last n days of data? (Exploring recommendations under user-controlled data filtering)</h3>
+
+<blockquote>
+  <ul>
+    <li>“Using the MovieLens dataset as a testbed, we evaluated three widely used collaborative filtering algorithms.”</li>
+    <li>“Our experiments demonstrate that filtering out historical user data does not significantly affect the overall recommendation performance.”</li>
+    <li>Impacts those who opted out (naturally)</li>
+  </ul>
+</blockquote>
+
+<p>Paper: https://scholar.google.com/citations?user=Vyj2jeoAAAAJ&amp;hl=en#d=gs_md_cita-d&amp;p=&amp;u=%2Fcitations%3Fview_op%3Dview_citation%26hl%3Den%26user%3DVyj2jeoAAAAJ%26citation_for_view%3DVyj2jeoAAAAJ%3A2osOgNQ5qMEC%26tzom%3D420</p>
+
+<h3 id="interactive-recommendation-via-deep-neural-memory-augmented-contextual-bandits">Interactive recommendation via deep neural memory augmented contextual bandits</h3>
+
+<ul>
+  <li>created a recsys simulator? check out…</li>
+  <li>Paper: https://dl.acm.org/citation.cfm?id=3240344</li>
+</ul>
