@@ -1,9 +1,7 @@
-+++
-date = 2017-09-11
-title = "Deep NLP-based Recommenders at Finn.no"
-active = true
-tags = ["foo"]
-+++
+---
+title: "Deep NLP-based Recommenders at Finn.no"
+categories: [nlp]
+---
 
 During a hackathon at FINN.no, we figured we wanted to learn more about deep NLP-models. FINN.no has a large database with ads of people trying to sell stuff (around 1 million active ads at any time), and they are categorized into a category tree with three or four layers. For example, full suspension bikes can be found under “Sport and outdoor activities” / “Bike sport” / “Full suspension bikes”.
 
@@ -14,7 +12,7 @@ To achieve a measure of similarity, building a classifier of the previously ment
 Some preprocessing still had to be done. We ran through all ads, concatenated the title and description strings, and after a quick look at the data took the first 15 words of each ad.
 
 <figure>
-   <img class="center-block" src="/assets/2017-09-08-NLP-based-recommenders-at-finn/model architecture proposed by the paper.png" alt="alt" title="Model architecture proposed by the paper" />
+   <img class="center-block" src="{{ site.baseurl }}/assets_old/assets/2017-09-08-NLP-based-recommenders-at-finn/model architecture proposed by the paper.png" alt="alt" title="Model architecture proposed by the paper" />
    <figcaption style="text-align:center; font-style:italic;"> Model architecture proposed by the paper</figcaption>
 </figure>
 
@@ -22,7 +20,7 @@ Some preprocessing still had to be done. We ran through all ads, concatenated th
 Our initial experiments were done with a simple [“Bag of words” model included in the Keras repository](https://github.com/fchollet/keras/blob/2.0.3/examples/reuters_mlp.py), but we promptly switched over to [“Convolutional Neural Networks for Sentence Classification” based architecture](https://arxiv.org/pdf/1408.5882.pdf) after hearing about it from our colleague, Tobias. By looking at the first 15 words of the ad, and using 200 dimensional embeddings for each word, our input is transformed into a 15x200 matrix. We apply three different convolutions on each document. The three convolutions looks at 2, 3 and 4 words (kernel sizes) in each convolution. It then max-pools each over the whole document, so that you end up with one value per document per convolution. For each kernel size you do 100 different filters. Finally you add a dense layer for classification. In addition to the standard model described in the paper, we experimented with different kernel sizes, number of filters, dense layers, batch normalization and dropout. We also added several losses, so that the model optimized both the higher and lower category at the same time. That helped.
 
 <figure>
-   <img class="center-block" src="/assets/2017-09-08-NLP-based-recommenders-at-finn/keras representation of our nlp model.png" alt="alt" title="Keras representation of our NLP model" />
+   <img class="center-block" src="{{ site.baseurl }}/assets_old/assets/2017-09-08-NLP-based-recommenders-at-finn/keras representation of our nlp model.png" alt="alt" title="Keras representation of our NLP model" />
    <figcaption style="text-align:center; font-style:italic;"> Keras representation of our NLP model</figcaption>
 </figure>
 
@@ -40,17 +38,17 @@ This gave us decent results using only text, performing about 5-6% percent worse
 This is likely due to better supporting “cold ads”, or ads without traffic, while still retaining the accuracy of the collaborative filtering-model.
 
 <figure>
-   <img class="center-block" src="/assets/2017-09-08-NLP-based-recommenders-at-finn/cold ad.png" alt="alt" title="Cold ad" />
+   <img class="center-block" src="{{ site.baseurl }}/assets_old/assets/2017-09-08-NLP-based-recommenders-at-finn/cold ad.png" alt="alt" title="Cold ad" />
    <figcaption style="text-align:center; font-style:italic;"> An example of a “cold ad”, where we think our NLP model does a better job at finding relevancy than the traditional collaborative filtering approach</figcaption>
 </figure>
 
 <figure>
-   <img class="center-block" src="/assets/2017-09-08-NLP-based-recommenders-at-finn/collaborative filtering.png" alt="alt" title="Collaborative filtering" />
+   <img class="center-block" src="{{ site.baseurl }}/assets_old/assets/2017-09-08-NLP-based-recommenders-at-finn/collaborative filtering.png" alt="alt" title="Collaborative filtering" />
    <figcaption style="text-align:center; font-style:italic;"> Collaborative filtering recommendations</figcaption>
 </figure>
 
 <figure>
-   <img class="center-block" src="/assets/2017-09-08-NLP-based-recommenders-at-finn/nlp recommendations.png" alt="alt" title="NLP Recommendations" />
+   <img class="center-block" src="{{ site.baseurl }}/assets_old/assets/2017-09-08-NLP-based-recommenders-at-finn/nlp recommendations.png" alt="alt" title="NLP Recommendations" />
    <figcaption style="text-align:center; font-style:italic;"> NLP Recommendations</figcaption>
 </figure>
 

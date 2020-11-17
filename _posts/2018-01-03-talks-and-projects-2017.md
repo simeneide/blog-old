@@ -1,9 +1,8 @@
-+++
-date = 2018-01-03
-title = "Deep Recommenders, Car Pricing, Self driving rc-car and other projects in 2017"
-active = true
-tags = ["foo"]
-+++
+---
+title: "Deep Recommenders, Car Pricing, Self driving rc-car and other projects in 2017"
+toc: true
+categories = [recsys, carprice, autonomous cars]
+---
 
 I am not a fan of new years resolutions.
 If I had been, one of my new years resolutions would be to be better at writing down what I am doing all the time.
@@ -21,7 +20,7 @@ We [**published both algorithm and the dataset here**](https://github.com/simene
 <iframe src="https://player.vimeo.com/video/233848280" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 
 ### Algorithms we are using in FINN.no to recommend you good stuff
-<img src="/assets/2017-10-10-eide-finn-model-zoo.png" alt="How FINNs personalization algorithms work" style="float:right;width: 40%;"/>
+<img src="{{ site.baseurl }}/assets_old/assets/2017-10-10-eide-finn-model-zoo.png" alt="How FINNs personalization algorithms work" style="float:right;width: 40%;"/>
 
 I have actually held three talks on this.
 First off was the one

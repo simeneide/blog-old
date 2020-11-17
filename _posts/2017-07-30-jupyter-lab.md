@@ -1,9 +1,7 @@
-+++
-date = 2017-07-30
-title = "Jupyter lab - First impression"
-active = true
-tags = ["foo"]
-+++
+---
+title: "Jupyter lab - First impression"
+categories: [jupyter]
+---
 
 Every three months or so I get really annoyed about Jupyter Notebook being so limited,
 and I usually spend half a day browsing alternatives like Spyder, PyCharm and Rodeo.
