@@ -1,6 +1,7 @@
 ---
 title: "KDD workshop Deep learning Day: Five lessons from building a deep neural network recommender for marketplaces"
 categories: [conference]
+layout: post
 ---
 
 Ning Zhou, Audun Øygard and I got a paper in the KDD workshop Deep Learning Day.

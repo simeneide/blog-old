@@ -1,6 +1,7 @@
 ---
 title: "Jupyter lab - First impression"
 categories: [jupyter]
+layout: post
 ---
 
 Every three months or so I get really annoyed about Jupyter Notebook being so limited,

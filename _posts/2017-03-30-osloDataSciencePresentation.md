@@ -1,5 +1,6 @@
 ---
 title: "Presentation from Oslo Data Science Meetup"
+layout: post
 categories: [recsys]
 ---
 
