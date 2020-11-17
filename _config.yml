@@ -46,13 +46,13 @@ minima:
 use_math: true
 
 # Set this to true to display the summary of your blog post under your title on the Home page.
-show_description: false
+show_description: true
 
 # Set this to true to display image previews on home page, if they exist
 show_image: true
 
 # Set this to true to turn on annotations with hypothes.is (https://web.hypothes.is/)
-annotations: true
+annotations: false
 
 # Set this to true to display tags on each post
 show_tags: true
