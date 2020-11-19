@@ -1,1 +1,1 @@
-Sitemap: https://simeneide.github.io/blog/sitemap.xml
+Sitemap: https://eide.ai/sitemap.xml
