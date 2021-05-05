@@ -3,23 +3,16 @@ title: "Dynamic Slate Recommendation with Gated Recurrent Units and Thompson Sam
 layout: post
 categories: [recsys]
 ---
-Very excited to present "Dynamic Slate Recommendation with Gated Recurrent Units and Thompson Sampling" by @freeges , @DLeslieLancs and myself: A bandit-based Bayesian NN that recommends slates of items.
-We also release a dataset that includes the items presented to the user.
+
+![]({{site.baseurl}}/images/interaction_illustration.png)
+
+### Paper:
 https://arxiv.org/abs/2104.15046
 
-The model uses a new (and in our view more realistic) likelihood (slate likelihood) and uses Thompson Sampling to explore and show a diverse set of items to the user in each slate. To tackle the cold-start problem, we use hierarchical item priors. We test both offline and online.
-
-Along with our paper, we release a recommender systems dataset from the Norwegian marketplace FINN.no that not only includes the sequence of the user's clicks (or not clicked), but also what items the user was shown in each slate.
+### Code: 
 https://github.com/finn-no/recsys-slates-dataset
 
-This is important because recsys often assume that the user considers all items on a platform, while they in reality only choose from a smaller slate presented to them. With this new dataset, we are able to make more reasonable models about user behaviour!
+## Abstract
 
-We compare these two different forms of likelihood (slate vs allitem likelihood), and find both theoretically and empirically that the new "slate likelihood" is (surprisingly?) not always better.
+We consider the problem of recommending relevant content to users of an internet platform in the form of lists of items, called slates. We introduce a variational Bayesian Recurrent Neural Net recommender system that acts on time series of interactions between the internet platform and the user, and which scales to real world industrial situations. The recommender system is tested both online on real users, and on an offline dataset collected from a Norwegian web-based marketplace, this http URL, that is made public for research. This is one of the first publicly available datasets which includes all the slates that are presented to users as well as which items (if any) in the slates were clicked on. Such a data set allows us to move beyond the common assumption that implicitly assumes that users are considering all possible items at each interaction. Instead we build our likelihood using the items that are actually in the slate, and evaluate the strengths and weaknesses of both approaches theoretically and in experiments. We also introduce a hierarchical prior for the item parameters based on group memberships. Both item parameters and user preferences are learned probabilistically. Furthermore, we combine our model with bandit strategies to ensure learning, and introduce `in-slate Thompson Sampling' which makes use of the slates to maximise explorative opportunities. We show experimentally that explorative recommender strategies perform on par or above their greedy counterparts. Even without making use of exploration to learn more effectively, click rates increase simply because of improved diversity in the recommended slates.
 
-In fact, if the slates shown to the user on the platform are mostly search slates (above 80%), the all-item likelihood actually performs better. This is because it is biased to recommend the same items that has been already presented to the user.
-
-We also present a new exploration&diversity technique that samples from the posterior distribution on each slate presented to the user (in-slate thompson sampling). This ensures exploration, but it also gives a diversity to the slate that increases click rates in real world experiments.
-
-There is of course more to the paper than this. Check it out here :)
-https://arxiv.org/abs/2104.15046
-https://github.com/finn-no/recsys-slates-dataset
