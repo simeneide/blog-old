@@ -1,5 +1,6 @@
 ---
 title: "Dynamic Slate Recommendation with Gated Recurrent Units and Thompson Sampling"
+image: images/interaction_illustration.png
 layout: post
 categories: [recsys]
 ---
