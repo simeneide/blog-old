@@ -3,14 +3,17 @@ title: "Dynamic Slate Recommendation with Gated Recurrent Units and Thompson Sam
 layout: post
 categories: [recsys]
 ---
+Simen Eide, David S. Leslie, Arnoldo Frigessi
+
+
+### Paper
+[https://arxiv.org/abs/2104.15046](https://arxiv.org/abs/2104.15046)
+
+### Code
+[https://github.com/finn-no/recsys-slates-dataset](https://github.com/finn-no/recsys-slates-dataset)
 
 ![]({{site.baseurl}}/images/interaction_illustration.png)
 
-### Paper:
-[https://arxiv.org/abs/2104.15046](https://arxiv.org/abs/2104.15046)
-
-### Code: 
-[https://github.com/finn-no/recsys-slates-dataset](https://github.com/finn-no/recsys-slates-dataset)
 
 ## Abstract
 
