@@ -2,6 +2,7 @@
 title: "Running Google Colab with VS code"
 layout: post
 categories: [vscode]
+comments: true
 ---
 
 Running VScode and the python extension is great for development.
