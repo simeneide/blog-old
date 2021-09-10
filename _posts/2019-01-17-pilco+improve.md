@@ -3,6 +3,7 @@ title: "PILCO and Deep PILCO"
 layout: post
 categories: [RL]
 image: images/pilco-preview.png
+comments: true
 ---
 Papers: 
 - [Deisenroth, M. P., & Rasmussen, C. E. (2011). PILCO: A model-based and data-efficient approach to policy search. Proceedings of the 28th International Conference on Machine Learning, ICML 2011, 465–472.](https://www.researchgate.net/publication/221345233_PILCO_A_Model-Based_and_Data-Efficient_Approach_to_Policy_Search)
