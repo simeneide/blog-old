@@ -3,6 +3,7 @@ title: "Dynamic Slate Recommendation with Gated Recurrent Units and Thompson Sam
 image: images/interaction_illustration.png
 layout: post
 categories: [recsys]
+comments: true
 ---
 Simen Eide, David S. Leslie, Arnoldo Frigessi
 
