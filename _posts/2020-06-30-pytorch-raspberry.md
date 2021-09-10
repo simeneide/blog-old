@@ -2,6 +2,7 @@
 title: "Installing Pytorch on a raspberry pi 4"
 layout: post
 categories: [rpi4, pytorch]
+comments: true
 ---
 # Update 15 sept 2020 
 I found [these wheel builds](https://mathinf.com/pytorch/arm64/) from [Thomas Viehmann](https://twitter.com/ThomasViehmann/status/1302944934333382656) that worked very well on a rpi4 64 bit running python 3.7. They are **pytorch 1.6.0** and avoids the original hacks.
