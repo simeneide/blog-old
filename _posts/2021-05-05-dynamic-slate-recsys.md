@@ -10,10 +10,10 @@ Publication: Data Mining and Knowledge Discovery
 Preprint: 5 May 2021
 Publication: 19 July 2022
 
-### Paper
+Paper link: 
 [https://link.springer.com/content/pdf/10.1007/s10618-022-00849-w.pdf](https://link.springer.com/content/pdf/10.1007/s10618-022-00849-w.pdf)
 
-### Code
+Code link:
 [https://github.com/finn-no/recsys-slates-dataset](https://github.com/finn-no/recsys-slates-dataset)
 
 ![]({{site.baseurl}}/images/interaction_illustration.png)
