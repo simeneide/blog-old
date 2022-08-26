@@ -5,11 +5,13 @@ layout: post
 categories: [recsys]
 comments: true
 ---
-Simen Eide, David S. Leslie, Arnoldo Frigessi
-
+Authors: Simen Eide, David S. Leslie, Arnoldo Frigessi
+Publication: Data Mining and Knowledge Discovery
+Preprint: 5 May 2021
+Publication: 19 July 2022
 
 ### Paper
-[https://arxiv.org/abs/2104.15046](https://arxiv.org/abs/2104.15046)
+[https://link.springer.com/content/pdf/10.1007/s10618-022-00849-w.pdf](https://link.springer.com/content/pdf/10.1007/s10618-022-00849-w.pdf)
 
 ### Code
 [https://github.com/finn-no/recsys-slates-dataset](https://github.com/finn-no/recsys-slates-dataset)
