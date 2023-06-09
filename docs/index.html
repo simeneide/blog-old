@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.361">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>eide.ai</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-listing/list.min.js"></script>
+<script src="site_libs/quarto-listing/quarto-listing.js"></script>
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script>
+
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-listing .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      
+      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  </script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">eide.ai</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./about.html" rel="" target="">
+ <span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/simeneide" rel="" target=""><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/simeneide" rel="" target=""><i class="bi bi-twitter" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-page">
+      <h1 class="title">eide.ai</h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block column-page" id="quarto-document-content">
+
+
+
+
+
+
+
+
+<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
+<div class="list quarto-listing-default">
+<div class="quarto-post image-right" data-index="0" data-categories="recsys" data-listing-date-sort="1620165600000" data-listing-file-modified-sort="1686293100976" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2">
+<div class="thumbnail">
+<p><a href="./posts/2021-05-05-dynamic-slate-recsys.html"> <img src="./posts/assets_old/interaction_illustration.png" class="thumbnail-image"> </a></p>
+</div>
+<div class="body">
+<a href="./posts/2021-05-05-dynamic-slate-recsys.html">
+<h3 class="no-anchor listing-title">
+Dynamic Slate Recommendation with Gated Recurrent Units and Thompson Sampling
+</h3>
+<div class="listing-subtitle">
+
+</div>
+<div class="listing-description">
+Authors: Simen Eide, David S. Leslie, Arnoldo Frigessi Publication: Data Mining and Knowledge Discovery Preprint: 5 May 2021 Publication: 19 July 2022
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/2021-05-05-dynamic-slate-recsys.html">
+<div class="listing-date">
+May 5, 2021
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="1" data-categories="bayesian,neural nets,mcmc" data-listing-date-sort="1605222000000" data-listing-file-modified-sort="1686293100859" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="14">
+<div class="thumbnail">
+<p><a href="./posts/2020-11-13-bayesian-deep-learning.html"> <img src="./posts/assets_old/mcmc-trace.png" class="thumbnail-image"> </a></p>
+</div>
+<div class="body">
+<a href="./posts/2020-11-13-bayesian-deep-learning.html">
+<h3 class="no-anchor listing-title">
+Bayesian Neural Nets and how to effectively train them with Stochastic Gradient Markov Chain Monte Carlo
+</h3>
+<div class="listing-subtitle">
+
+</div>
+<div class="listing-description">
+<p>An intuitive review of training bayesian neural nets with markov chain methods</p>
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/2020-11-13-bayesian-deep-learning.html">
+<div class="listing-date">
+Nov 13, 2020
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="2" data-categories="vscode" data-listing-date-sort="1600034400000" data-listing-file-modified-sort="1686293100860" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2">
+<div class="thumbnail">
+<p><a href="./posts/2020-09-14-colab-vscode-gpu.html"> <p class="card-img-top"><img src="posts/assets_old/assets/2020-09-14-12-29-52.png"  class="thumbnail-image card-img"/></p> </a></p>
+</div>
+<div class="body">
+<a href="./posts/2020-09-14-colab-vscode-gpu.html">
+<h3 class="no-anchor listing-title">
+Running Google Colab with VS code
+</h3>
+<div class="listing-subtitle">
+
+</div>
+<div class="listing-description">
+Running VScode and the python extension is great for development. I get clean python files <em>and</em> can run my code interactively. It is the same setup we have at work and I then remotely connect to a server with more cpu…
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/2020-09-14-colab-vscode-gpu.html">
+<div class="listing-date">
+Sep 14, 2020
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="3" data-categories="rpi4,pytorch" data-listing-date-sort="1593468000000" data-listing-file-modified-sort="1686293100977" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2">
+<div class="thumbnail">
+<p><a href="./posts/2020-06-30-pytorch-raspberry.html"> <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div> </a></p>
+</div>
+<div class="body">
+<a href="./posts/2020-06-30-pytorch-raspberry.html">
+<h3 class="no-anchor listing-title">
+Installing Pytorch on a raspberry pi 4
+</h3>
+<div class="listing-subtitle">
+
+</div>
+<div class="listing-description">
+I found these wheel builds from Thomas Viehmann that worked very well on a rpi4 64 bit running python 3.7. They are <strong>pytorch 1.6.0</strong> and avoids the original hacks. Only issue was that my camera stopped working, but manage to circumvent it by using a different driver (v4l-utils) and using opencv’s…
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/2020-06-30-pytorch-raspberry.html">
+<div class="listing-date">
+Jun 30, 2020
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="4" data-categories="RL" data-listing-date-sort="1547679600000" data-listing-file-modified-sort="1686293100978" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2">
+<div class="thumbnail">
+<p><a href="./posts/2019-01-17-pilco+improve.html"> <img src="./posts/assets_old/pilco-preview.png" class="thumbnail-image"> </a></p>
+</div>
+<div class="body">
+<a href="./posts/2019-01-17-pilco+improve.html">
+<h3 class="no-anchor listing-title">
+PILCO and Deep PILCO
+</h3>
+<div class="listing-subtitle">
+
+</div>
+<div class="listing-description">
+Papers: - Deisenroth, M. P., &amp; Rasmussen, C.…
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/2019-01-17-pilco+improve.html">
+<div class="listing-date">
+Jan 17, 2019
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="5" data-categories="recsys,conference" data-listing-date-sort="1538776800000" data-listing-file-modified-sort="1686293100977" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7">
+<div class="thumbnail">
+<p><a href="./posts/2018-10-06-recsys2018.html"> <p class="card-img-top"><img src="posts/assets_old/assets/2018-10-06-recsys2018-0867f3e3.png" alt="2018-10-06-recsys2018-0867f3e3.png"  class="thumbnail-image card-img"/></p> </a></p>
+</div>
+<div class="body">
+<a href="./posts/2018-10-06-recsys2018.html">
+<h3 class="no-anchor listing-title">
+Takeaways Recsys 2018
+</h3>
+<div class="listing-subtitle">
+
+</div>
+<div class="listing-description">
+For the first time Ive actually made a summary of all the papers and presentations I found noteworthy at a conference (allright, there were more, but this is a start). Below…
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/2018-10-06-recsys2018.html">
+<div class="listing-date">
+Oct 6, 2018
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="6" data-categories="bayesian,Matrix Factorization,MCMC" data-listing-date-sort="1538776800000" data-listing-file-modified-sort="1686293100985" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1">
+<div class="thumbnail">
+<p><a href="./posts/2018-11-23-bpmf-paper.html"> <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div> </a></p>
+</div>
+<div class="body">
+<a href="./posts/2018-11-23-bpmf-paper.html">
+<h3 class="no-anchor listing-title">
+BPMF presentation
+</h3>
+<div class="listing-subtitle">
+
+</div>
+<div class="listing-description">
+Slides from my presentation on “Bayesian Probabilistic Matrix Factorization using Markov Chain Monte Carlo” by Salakhutdinov and Mnih. Paper link.
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/2018-11-23-bpmf-paper.html">
+<div class="listing-date">
+Oct 6, 2018
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="7" data-categories="conference" data-listing-date-sort="1534629600000" data-listing-file-modified-sort="1686293100979" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1">
+<div class="thumbnail">
+<p><a href="./posts/2018-08-19-kdd-workshop.html"> <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div> </a></p>
+</div>
+<div class="body">
+<a href="./posts/2018-08-19-kdd-workshop.html">
+<h3 class="no-anchor listing-title">
+KDD workshop Deep learning Day: Five lessons from building a deep neural network recommender for marketplaces
+</h3>
+<div class="listing-subtitle">
+
+</div>
+<div class="listing-description">
+Ning…
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/2018-08-19-kdd-workshop.html">
+<div class="listing-date">
+Aug 19, 2018
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="8" data-categories="recsys,carprice,autonomous cars" data-listing-date-sort="1514934000000" data-listing-file-modified-sort="1686293100985" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5">
+<div class="thumbnail">
+<p><a href="./posts/2018-01-03-talks-and-projects-2017.html"> <p class="card-img-top"><img src="posts/assets_old/assets/2017-10-10-eide-finn-model-zoo.png" alt="How FINNs personalization algorithms work"  class="thumbnail-image card-img"/></p> </a></p>
+</div>
+<div class="body">
+<a href="./posts/2018-01-03-talks-and-projects-2017.html">
+<h3 class="no-anchor listing-title">
+Deep Recommenders, Car Pricing, Self driving rc-car and other projects in 2017
+</h3>
+<div class="listing-subtitle">
+
+</div>
+<div class="listing-description">
+I am not a fan of new years resolutions. If I had been, one of my new years resolutions…
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/2018-01-03-talks-and-projects-2017.html">
+<div class="listing-date">
+Jan 3, 2018
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="9" data-categories="nlp" data-listing-date-sort="1505080800000" data-listing-file-modified-sort="1686293100978" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5">
+<div class="thumbnail">
+<p><a href="./posts/2017-09-11-deep-nlp-rec.html"> <p class="card-img-top"><img src="posts/assets_old/assets/2017-09-08-NLP-based-recommenders-at-finn/model architecture proposed by the paper.png" alt="alt" title="Model architecture proposed by the paper" class="thumbnail-image card-img"/></p> </a></p>
+</div>
+<div class="body">
+<a href="./posts/2017-09-11-deep-nlp-rec.html">
+<h3 class="no-anchor listing-title">
+Deep NLP-based Recommenders at Finn.no
+</h3>
+<div class="listing-subtitle">
+
+</div>
+<div class="listing-description">
+During a hackathon at FINN.no, we figured we wanted to learn more about deep NLP-models. FINN.no has a large database with ads of people trying to sell stuff (around 1…
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/2017-09-11-deep-nlp-rec.html">
+<div class="listing-date">
+Sep 11, 2017
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="10" data-categories="jupyter" data-listing-date-sort="1501365600000" data-listing-file-modified-sort="1686293100979" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2">
+<div class="thumbnail">
+<p><a href="./posts/2017-07-30-jupyter-lab.html"> <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div> </a></p>
+</div>
+<div class="body">
+<a href="./posts/2017-07-30-jupyter-lab.html">
+<h3 class="no-anchor listing-title">
+Jupyter lab - First impression
+</h3>
+<div class="listing-subtitle">
+
+</div>
+<div class="listing-description">
+Every three months or so I get really annoyed about Jupyter Notebook being so limited, and I usually spend half a day browsing alternatives like Spyder, PyCharm and Rodeo.…
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/2017-07-30-jupyter-lab.html">
+<div class="listing-date">
+Jul 30, 2017
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="11" data-categories="matrix factorization,recsys" data-listing-date-sort="1495922400000" data-listing-file-modified-sort="1686293100977" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4">
+<div class="thumbnail">
+<p><a href="./posts/2017-05-28-CFexcel.html"> <p class="card-img-top"><img src="https://imgs.xkcd.com/comics/algorithms.png"  class="thumbnail-image card-img"/></p> </a></p>
+</div>
+<div class="body">
+<a href="./posts/2017-05-28-CFexcel.html">
+<h3 class="no-anchor listing-title">
+Collaborative Filtering Recommendations in Spreadsheets
+</h3>
+<div class="listing-subtitle">
+
+</div>
+<div class="listing-description">
+Most people have a…
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/2017-05-28-CFexcel.html">
+<div class="listing-date">
+May 28, 2017
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="12" data-categories="recsys" data-listing-date-sort="1490824800000" data-listing-file-modified-sort="1686293100977" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1">
+<div class="thumbnail">
+<p><a href="./posts/2017-03-30-osloDataSciencePresentation.html"> <p class="card-img-top"><img src="posts/assets_old/assets/draw-spark-tensorflow.jpg"  class="thumbnail-image card-img"/></p> </a></p>
+</div>
+<div class="body">
+<a href="./posts/2017-03-30-osloDataSciencePresentation.html">
+<h3 class="no-anchor listing-title">
+Presentation from Oslo Data Science Meetup
+</h3>
+<div class="listing-subtitle">
+
+</div>
+<div class="listing-description">
+In February I talked about the recommendation models we have at FINN.no, and how we work to develop…
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/2017-03-30-osloDataSciencePresentation.html">
+<div class="listing-date">
+Mar 30, 2017
+</div>
+</a>
+</div>
+</div>
+</div>
+<div class="listing-no-matching d-none">
+No matching items
+</div>
+</div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

@@ -1,0 +1,20 @@
+[
+  {
+    "listing": "/index.html",
+    "items": [
+      "/posts/2021-05-05-dynamic-slate-recsys.html",
+      "/posts/2020-11-13-bayesian-deep-learning.html",
+      "/posts/2020-09-14-colab-vscode-gpu.html",
+      "/posts/2020-06-30-pytorch-raspberry.html",
+      "/posts/2019-01-17-pilco+improve.html",
+      "/posts/2018-10-06-recsys2018.html",
+      "/posts/2018-11-23-bpmf-paper.html",
+      "/posts/2018-08-19-kdd-workshop.html",
+      "/posts/2018-01-03-talks-and-projects-2017.html",
+      "/posts/2017-09-11-deep-nlp-rec.html",
+      "/posts/2017-07-30-jupyter-lab.html",
+      "/posts/2017-05-28-CFexcel.html",
+      "/posts/2017-03-30-osloDataSciencePresentation.html"
+    ]
+  }
+]

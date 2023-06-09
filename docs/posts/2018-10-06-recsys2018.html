@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.361">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2018-10-06">
+
+<title>eide.ai - Takeaways Recsys 2018</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">eide.ai</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html" rel="" target="">
+ <span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/simeneide" rel="" target=""><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/simeneide" rel="" target=""><i class="bi bi-twitter" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Takeaways Recsys 2018</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">recsys</div>
+                <div class="quarto-category">conference</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">October 6, 2018</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#keynote-dlrs---joachims-deep-learning-with-logged-bandit-feedback" id="toc-keynote-dlrs---joachims-deep-learning-with-logged-bandit-feedback" class="nav-link active" data-scroll-target="#keynote-dlrs---joachims-deep-learning-with-logged-bandit-feedback">Keynote dlrs - Joachims: Deep learning with logged bandit feedback</a></li>
+  <li><a href="#youtube-minmin-chen-off-policy-correction-for-a-reinforce-rec-system" id="toc-youtube-minmin-chen-off-policy-correction-for-a-reinforce-rec-system" class="nav-link" data-scroll-target="#youtube-minmin-chen-off-policy-correction-for-a-reinforce-rec-system">Youtube, Minmin Chen: Off-policy correction for a REINFORCE Rec system</a></li>
+  <li><a href="#recsys-competition-winners-two-stage-model-for-automatic-playlist-continuation-at-scale" id="toc-recsys-competition-winners-two-stage-model-for-automatic-playlist-continuation-at-scale" class="nav-link" data-scroll-target="#recsys-competition-winners-two-stage-model-for-automatic-playlist-continuation-at-scale">Recsys-competition winners: Two-stage model for Automatic Playlist Continuation at Scale</a></li>
+  <li><a href="#categorical-attributes-based-item-classification-for-recommender-systems-hiarchical-softmax-and-multi-loss" id="toc-categorical-attributes-based-item-classification-for-recommender-systems-hiarchical-softmax-and-multi-loss" class="nav-link" data-scroll-target="#categorical-attributes-based-item-classification-for-recommender-systems-hiarchical-softmax-and-multi-loss">Categorical-attributes-based item classification for recommender systems: hiarchical softmax and multi loss</a></li>
+  <li><a href="#keynote-2-dlrs---ray-jiang-deepmind-slate-recommendation-part-1" id="toc-keynote-2-dlrs---ray-jiang-deepmind-slate-recommendation-part-1" class="nav-link" data-scroll-target="#keynote-2-dlrs---ray-jiang-deepmind-slate-recommendation-part-1">Keynote 2 dlrs - Ray Jiang, deepmind: slate recommendation (part 1)</a></li>
+  <li><a href="#calibrated-recommendations" id="toc-calibrated-recommendations" class="nav-link" data-scroll-target="#calibrated-recommendations">Calibrated Recommendations</a></li>
+  <li><a href="#explore-exploit-and-explain-personalizing-explainable-recommendations-with-bandits" id="toc-explore-exploit-and-explain-personalizing-explainable-recommendations-with-bandits" class="nav-link" data-scroll-target="#explore-exploit-and-explain-personalizing-explainable-recommendations-with-bandits">Explore, Exploit, and Explain: Personalizing Explainable Recommendations with Bandits</a></li>
+  <li><a href="#invited-talk-netflix-correlation-causation" id="toc-invited-talk-netflix-correlation-causation" class="nav-link" data-scroll-target="#invited-talk-netflix-correlation-causation">Invited talk Netflix: Correlation &amp; Causation</a></li>
+  <li><a href="#generation-meets-recommendation---generating-new-items-that-fit-most-users" id="toc-generation-meets-recommendation---generating-new-items-that-fit-most-users" class="nav-link" data-scroll-target="#generation-meets-recommendation---generating-new-items-that-fit-most-users">Generation meets recommendation - “Generating new items that fit most users”</a></li>
+  <li><a href="#on-the-robustness-and-discriminative-power-of-information-retrieval-metrics-for-top-n-recommendation" id="toc-on-the-robustness-and-discriminative-power-of-information-retrieval-metrics-for-top-n-recommendation" class="nav-link" data-scroll-target="#on-the-robustness-and-discriminative-power-of-information-retrieval-metrics-for-top-n-recommendation">On the robustness and discriminative power of information retrieval metrics for top-N recommendation</a></li>
+  <li><a href="#unbiased-offline-recommender-evaluation-for-missing-not-at-random-implicit-feedback" id="toc-unbiased-offline-recommender-evaluation-for-missing-not-at-random-implicit-feedback" class="nav-link" data-scroll-target="#unbiased-offline-recommender-evaluation-for-missing-not-at-random-implicit-feedback">Unbiased offline recommender evaluation for missing-not-at-random implicit feedback</a></li>
+  <li><a href="#recogym" id="toc-recogym" class="nav-link" data-scroll-target="#recogym">RecoGym</a></li>
+  <li><a href="#news-session-based-recommendations-using-dnn" id="toc-news-session-based-recommendations-using-dnn" class="nav-link" data-scroll-target="#news-session-based-recommendations-using-dnn">News session-based recommendations using DNN</a></li>
+  <li><a href="#what-happens-if-users-only-share-last-n-days-of-data-exploring-recommendations-under-user-controlled-data-filtering" id="toc-what-happens-if-users-only-share-last-n-days-of-data-exploring-recommendations-under-user-controlled-data-filtering" class="nav-link" data-scroll-target="#what-happens-if-users-only-share-last-n-days-of-data-exploring-recommendations-under-user-controlled-data-filtering">What happens if users only share last n days of data? (Exploring recommendations under user-controlled data filtering)</a></li>
+  <li><a href="#interactive-recommendation-via-deep-neural-memory-augmented-contextual-bandits" id="toc-interactive-recommendation-via-deep-neural-memory-augmented-contextual-bandits" class="nav-link" data-scroll-target="#interactive-recommendation-via-deep-neural-memory-augmented-contextual-bandits">Interactive recommendation via deep neural memory augmented contextual bandits</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<p>For the first time Ive actually made a summary of all the papers and presentations I found noteworthy at a conference (allright, there were more, but this is a start). Below is my notes, with links etc. The purpose of the notes is mainly for myself to remember and revisit what I found interesting, but I see no reasons not to share to others. Does not include my own [paper]( ).</p>
+<section id="keynote-dlrs---joachims-deep-learning-with-logged-bandit-feedback" class="level3">
+<h3 class="anchored" data-anchor-id="keynote-dlrs---joachims-deep-learning-with-logged-bandit-feedback">Keynote dlrs - Joachims: Deep learning with logged bandit feedback</h3>
+<ul>
+<li>Paper: http://www.cs.cornell.edu/people/tj/publications/joachims_etal_18a.pdf</li>
+<li>idea: utilize current policy to build a better contextual bandits to recommend.</li>
+<li>using Inverse Propensity Scoring</li>
+<li>Using Self-normalizing IPS estimator (SNIPS)</li>
+<li>Also using self normalizing</li>
+</ul>
+<p><img alt="2018-10-06-recsys2018-0867f3e3.png" src="assets_old/assets/2018-10-06-recsys2018-0867f3e3.png" width="" height=""></p>
+<p><img alt="2018-10-06-recsys2018-7462e07d.png" src="assets_old/assets/2018-10-06-recsys2018-7462e07d.png" width="" height=""></p>
+<p><img alt="2018-10-06-recsys2018-2df58514.png" src="assets_old/assets/2018-10-06-recsys2018-2df58514.png" width="" height=""></p>
+<p>A very similar talk seem to be posted here:</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/lzA5K4im2no" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen="">
+</iframe>
+</section>
+<section id="youtube-minmin-chen-off-policy-correction-for-a-reinforce-rec-system" class="level3">
+<h3 class="anchored" data-anchor-id="youtube-minmin-chen-off-policy-correction-for-a-reinforce-rec-system">Youtube, Minmin Chen: Off-policy correction for a REINFORCE Rec system</h3>
+<ul>
+<li>Invited talk on the evaluation workshop REVEAL</li>
+<li>Youtube shared their work on how the models they used now works, focus on evaluation</li>
+<li>Maximized recommendations based on expected future reward</li>
+<li>they do not use td to train the model, rather the all the actual future rewards and discounts them to get training signal.</li>
+</ul>
+<p><img alt="2018-10-06-recsys2018-ae6ed169.png" src="assets_old/assets/2018-10-06-recsys2018-ae6ed169.png" width="" height=""></p>
+<p><img alt="2018-10-06-recsys2018-343021fe.png" src="assets_old/assets/2018-10-06-recsys2018-343021fe.png" width="" height=""></p>
+<ul>
+<li><p>Corrects off-policy updates with importance sampling/IPS <img alt="2018-10-06-recsys2018-dd53f244.png" src="assets_old/assets/2018-10-06-recsys2018-dd53f244.png" width="" height=""></p></li>
+<li><p>Exploration is costly, so they tune ut with an extra weight that they set.</p></li>
+<li><p>Recommends a set of top K items. Assume additive rewards: <img alt="2018-10-06-recsys2018-954be358.png" src="assets_old/assets/2018-10-06-recsys2018-954be358.png" width="" height=""></p></li>
+</ul>
+<p><img alt="2018-10-06-recsys2018-03485057.png" src="assets_old/assets/2018-10-06-recsys2018-03485057.png" width="" height=""></p>
+<section id="results" class="level4">
+<h4 class="anchored" data-anchor-id="results">Results</h4>
+<ul>
+<li>Improved recs, also able to recommend more items into the tail.</li>
+</ul>
+<p><img alt="2018-10-06-recsys2018-b4d59684.png" src="assets_old/assets/2018-10-06-recsys2018-b4d59684.png" width="" height=""></p>
+</section>
+</section>
+<section id="recsys-competition-winners-two-stage-model-for-automatic-playlist-continuation-at-scale" class="level3">
+<h3 class="anchored" data-anchor-id="recsys-competition-winners-two-stage-model-for-automatic-playlist-continuation-at-scale">Recsys-competition winners: Two-stage model for Automatic Playlist Continuation at Scale</h3>
+<ul>
+<li>Challenge website: http://www.recsyschallenge.com/2018/</li>
+<li>Winner paper: http://www.cs.toronto.edu/~mvolkovs/recsys2018_challenge.pdf</li>
+<li>Task was to complete a user playlist at spotify.</li>
+<li>A playlist may have be created over a long time.</li>
+<li>Given the first items, predict the last ones.</li>
+</ul>
+<p>Approach:</p>
+<ul>
+<li>step 1: Reduce candidate set of all items to 20k by using a temporal convolutional layer.
+<ul>
+<li>(lstm worked too, but was slower to train and iterate on).</li>
+<li>The step 1 was really about maximizing recall.</li>
+</ul></li>
+<li>Step 2: xgboost classifier on these candidates</li>
+</ul>
+<p><img alt="2018-10-06-recsys2018-7267c259.png" src="assets_old/assets/2018-10-06-recsys2018-7267c259.png" width="" height=""></p>
+</section>
+<section id="categorical-attributes-based-item-classification-for-recommender-systems-hiarchical-softmax-and-multi-loss" class="level3">
+<h3 class="anchored" data-anchor-id="categorical-attributes-based-item-classification-for-recommender-systems-hiarchical-softmax-and-multi-loss">Categorical-attributes-based item classification for recommender systems: hiarchical softmax and multi loss</h3>
+<ul>
+<li><p>Paper: https://dl.acm.org/citation.cfm?id=3240367</p></li>
+<li><p>Setting: Next item prediction with items within some category structure.</p></li>
+<li><p>Using negative sampling during training</p></li>
+<li><p>Does the recommender improve by predicting a hiarchical softmax instead of doing multi target prediction?</p></li>
+<li><p>Result: Using hiarchical modeling is better than multi target. Testet with MAP@5 on recsys16 dataset and “large propertary dataset”.</p></li>
+<li><p>Also helps with cold start</p></li>
+</ul>
+<p>Own comments: Unsure of the improvement is due to negative sampling or that you infer more structure in your data/model.</p>
+<blockquote class="twitter-tweet blockquote" data-lang="en">
+<p lang="en" dir="ltr">
+"Categorical-Attributes-Based Item Classification for Recommender Systems" by <a href="https://twitter.com/QianZhao3?ref_src=twsrc%5Etfw"><span class="citation" data-cites="QianZhao3">@QianZhao3</span></a> and Google folks lead by <a href="https://twitter.com/edchi?ref_src=twsrc%5Etfw"><span class="citation" data-cites="edchi">@edchi</span></a> - really interesting idea: categorical labels as <em>outputs</em> of multitask model you are optimizing when recommending items <a href="https://twitter.com/hashtag/RecSys2018?src=hash&amp;ref_src=twsrc%5Etfw">#RecSys2018</a> <a href="https://t.co/Bkljw0zVFf">https://t.co/Bkljw0zVFf</a> <a href="https://t.co/PavBxdtLaX">pic.twitter.com/PavBxdtLaX</a>
+</p>
+— Xavier @ #recsys2018🎗🤖🏃 (<span class="citation" data-cites="xamat">@xamat</span>) <a href="https://twitter.com/xamat/status/1048331032619970560?ref_src=twsrc%5Etfw">October 5, 2018</a>
+</blockquote>
+<script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<p><img alt="2018-10-06-recsys2018-0566e34a.png" src="assets_old/assets/2018-10-06-recsys2018-0566e34a.png" width="50%" height=""></p>
+<p><img alt="2018-10-06-recsys2018-0224ef5e.png" src="assets_old/assets/2018-10-06-recsys2018-0224ef5e.png" width="50%" height=""></p>
+</section>
+<section id="keynote-2-dlrs---ray-jiang-deepmind-slate-recommendation-part-1" class="level3">
+<h3 class="anchored" data-anchor-id="keynote-2-dlrs---ray-jiang-deepmind-slate-recommendation-part-1">Keynote 2 dlrs - Ray Jiang, deepmind: slate recommendation (part 1)</h3>
+<ul>
+<li>Relevant paper (seems unpublished): https://arxiv.org/pdf/1803.01682.pdf</li>
+<li>predict a full feed instead of single items</li>
+<li>use a VAE to do this,</li>
+<li>“Works really well”.</li>
+<li>Tested on Recsys 2015: was the best slate dataset they could find</li>
+</ul>
+<p><img alt="2018-10-06-recsys2018-ce298161.png" src="assets_old/assets/2018-10-06-recsys2018-ce298161.png" width="" height=""></p>
+<p><img alt="2018-10-06-recsys2018-da23e997.png" src="assets_old/assets/2018-10-06-recsys2018-da23e997.png" width="" height=""></p>
+<p>https://arxiv.org/abs/1803.01682</p>
+</section>
+<section id="calibrated-recommendations" class="level3">
+<h3 class="anchored" data-anchor-id="calibrated-recommendations">Calibrated Recommendations</h3>
+<ul>
+<li>Paper: https://dl.acm.org/citation.cfm?id=3240372</li>
+<li>If you have seen 70% drama and 30% horror, optimizing a recommender on precision, the best solution is to give you 100% drama and get 70% precision.</li>
+<li>The paper suggests to calibrate the recommendations to be more representative.</li>
+<li>Done by regularizing the recommendations with the KL divergence of categories (genres in this case)</li>
+<li>Done as a post processing step.</li>
+<li>Result: Can rerank top recommendations to a much more representative distribution without losing accuracy.</li>
+</ul>
+<p>https://dl.acm.org/citation.cfm?id=3240372</p>
+</section>
+<section id="explore-exploit-and-explain-personalizing-explainable-recommendations-with-bandits" class="level3">
+<h3 class="anchored" data-anchor-id="explore-exploit-and-explain-personalizing-explainable-recommendations-with-bandits">Explore, Exploit, and Explain: Personalizing Explainable Recommendations with Bandits</h3>
+<ul>
+<li>Paper: https://dl.acm.org/citation.cfm?id=3240354</li>
+<li>Feed-bandit that uses a factorization machine to predict and explain recommendations</li>
+<li>context: Home page of spotify account. Different shelves of recommendations, each with an explanation (“because you recently listened to..”)</li>
+</ul>
+</section>
+<section id="invited-talk-netflix-correlation-causation" class="level3">
+<h3 class="anchored" data-anchor-id="invited-talk-netflix-correlation-causation">Invited talk Netflix: Correlation &amp; Causation</h3>
+<ul>
+<li><p>Yves Raimond, AI director Netflix</p></li>
+<li><p>Netflix’s approach: personalize everything</p></li>
+<li><p>Made some thoughts about the do operator P(Y | do(X))</p></li>
+<li><p>Maybe better for recs to focus on P(click | do(X)) - P(click | not do X)</p></li>
+<li><p>IPS:</p></li>
+<li><p>pro: simple, model-agnostic</p></li>
+<li><p>con: only unbiased if no unobserved cofounders, high variance</p></li>
+<li><p>Alternative til IPS: Instrumental Variable</p></li>
+<li><p>used in econometrics</p></li>
+<li><p>pro: robust to unobserved cofounders</p></li>
+<li><p>con: bias/var depends on strength of IV, hard to scale</p></li>
+</ul>
+<p><img alt="2018-10-06-recsys2018-211b351e.png" src="assets_old/assets/2018-10-06-recsys2018-211b351e.png" width="" height=""> <img alt="2018-10-06-recsys2018-7ab75917.png" src="assets_old/assets/2018-10-06-recsys2018-7ab75917.png" width="" height=""></p>
+<p><img alt="2018-10-06-recsys2018-4d1e1674.png" src="assets_old/assets/2018-10-06-recsys2018-4d1e1674.png" width="" height=""></p>
+</section>
+<section id="generation-meets-recommendation---generating-new-items-that-fit-most-users" class="level3">
+<h3 class="anchored" data-anchor-id="generation-meets-recommendation---generating-new-items-that-fit-most-users">Generation meets recommendation - “Generating new items that fit most users”</h3>
+<ul>
+<li>Paper: https://arxiv.org/abs/1808.01199</li>
+</ul>
+<blockquote class="blockquote">
+<ul>
+<li>“Consider a movie studio aiming to produce a set of new movies for summer release: What types of movies it should produce? Who would the movies appeal to?”</li>
+<li>“Specifically, we leverage the latent space obtained by training a deep generative model—the Variational Autoencoder (VAE)—via a loss function that incorporates both rating performance and item reconstruction terms.”</li>
+<li>“We then apply a greedy search algorithm that utilizes this learned latent space to jointly obtain K plausible new items, and user groups that would find the items appealing.”</li>
+</ul>
+</blockquote>
+</section>
+<section id="on-the-robustness-and-discriminative-power-of-information-retrieval-metrics-for-top-n-recommendation" class="level3">
+<h3 class="anchored" data-anchor-id="on-the-robustness-and-discriminative-power-of-information-retrieval-metrics-for-top-n-recommendation">On the robustness and discriminative power of information retrieval metrics for top-N recommendation</h3>
+<ul>
+<li><p>Paper: https://dl.acm.org/authorize.cfm?key=N668684</p></li>
+<li><p>An evaluation of robustness of many offline metrics at different ranking level. E.g. MRR@5, Recall@10, MAP@100, …</p></li>
+<li><p>Takeaway 1: Use a high cutoff (e.g.&nbsp;100 instead of 10) when doing offline evaluations, like MRR. The metric is more robust, and highly correlated to the MRR@10 values</p></li>
+<li><p>Takeaway 2: MRR is one of the lesser robust offline metrics.</p></li>
+</ul>
+<p><img alt="2018-10-06-recsys2018-6ac93198.png" src="assets_old/assets/2018-10-06-recsys2018-6ac93198.png" width="" height=""></p>
+<p>Takeaway 2: mrr er ganske lite robust.</p>
+</section>
+<section id="unbiased-offline-recommender-evaluation-for-missing-not-at-random-implicit-feedback" class="level3">
+<h3 class="anchored" data-anchor-id="unbiased-offline-recommender-evaluation-for-missing-not-at-random-implicit-feedback">Unbiased offline recommender evaluation for missing-not-at-random implicit feedback</h3>
+<blockquote class="blockquote">
+<p>Implicit-feedback Recommenders (ImplicitRec) leverage positive only user-item interactions, such as clicks, to learn personalized user preferences. Recommenders are often evaluated and compared offline using datasets collected from online platforms. These platforms are subject to popularity bias (i.e., popular items are more likely to be presented and interacted with), and therefore logged ground truth data are Missing-Not-At-Random (MNAR).</p>
+</blockquote>
+<ul>
+<li>“Average over all” estimators are biased in Implicit rec datasets</li>
+<li>Use IPS to evaluate policies.</li>
+<li>reduce bias with 30% in a yahoo! music datset.</li>
+<li>Paper: https://dl.acm.org/citation.cfm?id=3240355</li>
+</ul>
+</section>
+<section id="recogym" class="level3">
+<h3 class="anchored" data-anchor-id="recogym">RecoGym</h3>
+<ul>
+<li><p>Simulation environment where you can evaluate your recommender agent</p></li>
+<li><p>Follows the same style as openAI gym: env.step(action)</p></li>
+<li><p>When we tried it a bit the day before, the users seemed to click on the same items over and over again, probably some tuning that needs to be done there?</p></li>
+<li><p>This is sort of an alternative approach to offline evaluation. Simulators are limited by their generating model, but can we still use it to test algorithms for convergence etc?</p></li>
+<li><p>Unrelated to talk and recogym, but some notes me and Olav did on rec simulations during conf. Same ideas:</p></li>
+</ul>
+<p><img alt="2018-10-06-recsys2018-d17df3a5.png" src="assets_old/assets/2018-10-06-recsys2018-d17df3a5.png" width="" height=""></p>
+</section>
+<section id="news-session-based-recommendations-using-dnn" class="level3">
+<h3 class="anchored" data-anchor-id="news-session-based-recommendations-using-dnn">News session-based recommendations using DNN</h3>
+<ul>
+<li>A recommendation algorithm to recommend news.</li>
+<li>Freshness and coldstart big problems.</li>
+<li>Separate item representation that uses a lot of content, independent of users</li>
+<li>Unfortunately not tested in prod (authors from large news corp.)</li>
+<li>Tested on offline data: Beats everything, incl gru4rec ++</li>
+<li>Paper: https://arxiv.org/abs/1808.00720</li>
+<li>Code: https://github.com/criteo-research/reco-gym</li>
+</ul>
+<p><img alt="2018-10-06-recsys2018-ba51b891.png" src="assets_old/assets/2018-10-06-recsys2018-ba51b891.png" width="" height=""></p>
+</section>
+<section id="what-happens-if-users-only-share-last-n-days-of-data-exploring-recommendations-under-user-controlled-data-filtering" class="level3">
+<h3 class="anchored" data-anchor-id="what-happens-if-users-only-share-last-n-days-of-data-exploring-recommendations-under-user-controlled-data-filtering">What happens if users only share last n days of data? (Exploring recommendations under user-controlled data filtering)</h3>
+<blockquote class="blockquote">
+<ul>
+<li>“Using the MovieLens dataset as a testbed, we evaluated three widely used collaborative filtering algorithms.”</li>
+<li>“Our experiments demonstrate that filtering out historical user data does not significantly affect the overall recommendation performance.”</li>
+<li>Impacts those who opted out (naturally)</li>
+</ul>
+</blockquote>
+<p>Paper: https://scholar.google.com/citations?user=Vyj2jeoAAAAJ&amp;hl=en#d=gs_md_cita-d&amp;p=&amp;u=%2Fcitations%3Fview_op%3Dview_citation%26hl%3Den%26user%3DVyj2jeoAAAAJ%26citation_for_view%3DVyj2jeoAAAAJ%3A2osOgNQ5qMEC%26tzom%3D420</p>
+</section>
+<section id="interactive-recommendation-via-deep-neural-memory-augmented-contextual-bandits" class="level3">
+<h3 class="anchored" data-anchor-id="interactive-recommendation-via-deep-neural-memory-augmented-contextual-bandits">Interactive recommendation via deep neural memory augmented contextual bandits</h3>
+<ul>
+<li>created a recsys simulator? check out…</li>
+<li>Paper: https://dl.acm.org/citation.cfm?id=3240344</li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
