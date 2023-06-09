@@ -1,0 +1,24 @@
+---
+title: "About"
+image: profile.jpg
+about:
+  template: jolla
+  links:
+    - icon: twitter
+      text: Twitter
+      href: https://twitter.com/simeneide
+    - icon: linkedin
+      text: LinkedIn
+      href: https://linkedin.com/in/simeneide/
+    - icon: github
+      text: Github
+      href: https://github.com/simeneide
+
+---
+
+Math guy with hacking skills at the Norwegian marketplace FINN.no and
+  at the machine learning startup Arctic Datalab.  I am also doing an industrial phd
+  in statistics at University of Oslo where I focus on personalization, bayesian statistics
+  and bandits. Working on personalization systems and other machine learning tasks
+  using behaviour, image and text.  Background from mathematics, statistics and financial
+  modeling.

@@ -1,0 +1,19 @@
+project:
+  type: website
+
+website:
+  title: "eide.ai"
+  navbar:
+    right:
+      - about.qmd
+      - icon: github
+        href: https://github.com/simeneide
+      - icon: twitter
+        href: https://twitter.com/simeneide
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+
+
+
